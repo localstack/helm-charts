@@ -3,97 +3,67 @@ kind: Deployment
 metadata:
   name: {{ include "localstack.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "localstack.name" . }}
-    helm.sh/chart: {{ include "localstack.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "localstack.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "localstack.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "localstack.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        app.kubernetes.io/name: {{ include "localstack.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- include "localstack.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "localstack.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: {{ .Values.localstack.port }}
+            - name: edgeport
+              containerPort: {{ .Values.service.edgePort }}
               protocol: TCP
-          {{- range $index, $val := .Values.localstack.services }}
-            - name: {{ $val.name }}
-              containerPort: {{ $val.internalPort }}
-          {{- end }}
+            - name: esport
+              containerPort: {{ .Values.service.esPort }}
+              protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /health
+              port: edgeport
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /health
+              port: edgeport
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: USE_SSL
-              value: !!string {{ .Values.localstack.useSsl }}
-            - name: SERVICES
-              value: "{{- range $index, $val := .Values.localstack.services -}}
-                      {{- if $index -}},{{- end -}}{{- $val.name -}}:{{- $val.internalPort -}}
-                      {{- end -}}"
-            {{- $root :=  . -}}
-            {{- with .Values.localstack }}
-              {{- if .defaultRegion }}
-            - name: DEFAULT_REGION
-              value: {{ .defaultRegion | quote}}
-              {{- end }}
-            - name: HOST_EXTERNAL
-              {{- if .hostExternal }}
-              value: {{.hostExternal | quote}}
-              {{- else }}
-              value: "{{- template "localstack.fullname" $root -}}.{{- $root.Release.Namespace -}}"
-              {{- end }}
-              {{- if .kinesisErrorProbability }}
+            - name: DEBUG
+              value: {{ ternary "1" "0" .Values.debug | quote }}
+            {{- if .Values.kinesisErrorProbability }}
             - name: KINESIS_ERROR_PROBABILITY
-              value: {{.kinesisErrorProbability | quote}}
-              {{- end }}
-              {{- if .dynamodbErrorProbability }}
-            - name: DYNAMODB_ERROR_PROBABILITY
-              value: {{.dynamodbErrorProbability | quote}}
-              {{- end }}
-              {{- if .lambdaExecutor }}
-            - name: LAMBDA_EXECUTOR
-              value: {{.lambdaExecutor | quote }}
-              {{- end }}
-              {{- range $key, $val := .services -}}
-              {{- if $val.enabled  }}
-              {{- if $val.endpoint  }}
-            - name: {{$val.name | upper}}_BACKEND
-              value: {{$val.endpoint | quote}}
-              {{- end }}
-              {{- end }}
-              {{- end -}}
+              value: {{ .Values.kinesisErrorProbability | quote }}
             {{- end }}
-            {{- if .Values.persistence.enabled }}
-            - name: DATA_DIR
-              value: "/tmp/localstack/data"
+            {{- if .Values.startServices }}
+            - name: SERVICES
+              value: {{ .Values.startServices | quote }}
             {{- end }}
-            - name: PORT_WEB_UI
-              value: {{ .Values.localstack.port | quote }}
-          # @todo ensure correct
-          # {{- if .Values.persistence.mounts }}
-          # {{ toYaml .Values.persistence.mounts | indent 12 }}
-          # {{- end }}
-          volumeMounts:
-            - name: datadir
-              mountPath: /tmp/localstack
+            {{- if .Values.extraEnvVars }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -106,12 +76,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      # @todo ensure correct
-      volumes:
-        - name: datadir
-      {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (include "localstack.fullname" .)}}
-      {{- else }}
-          emptyDir: {}
-      {{- end }}
