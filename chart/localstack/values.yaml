@@ -45,8 +45,8 @@ debug: false
 ## All the parameters from the configuatioan can be added using extraEnvVars.
 ## Ref. https://github.com/localstack/localstack#configurations
 ## extraEnvVars:
-##   - name: KAFKA_CFG_BACKGROUND_THREADS
-##     value: "10"
+##   - name: DEFAULT_REGION
+##     value: "us-east-1"
 extraEnvVars: []
 
 service:
