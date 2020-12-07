@@ -57,6 +57,14 @@ spec:
             - name: KINESIS_ERROR_PROBABILITY
               value: {{ .Values.kinesisErrorProbability | quote }}
             {{- end }}
+            {{- if .Values.lambdaExecutor }}
+            - name: LAMBDA_EXECUTOR
+              value: {{ .Values.lambdaExecutor | quote }}
+            {{- end }}
+            {{- if .Values.dataDir }}
+            - name: DATA_DIR
+              value: {{ .Values.dataDir | quote }}
+            {{- end }}
             {{- if .Values.startServices }}
             - name: SERVICES
               value: {{ .Values.startServices | quote }}

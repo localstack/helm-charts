@@ -37,8 +37,17 @@ securityContext: {}
 
 debug: false
 
-kinesisErrorProbability: 0.0
-startServices: ""
+# kinesisErrorProbability: 0.0
+# startServices: ""
+# lambdaExecutor: ""
+# dataDir: ""
+
+## All the parameters from the configuatioan can be added using extraEnvVars.
+## Ref. https://github.com/localstack/localstack#configurations
+## extraEnvVars:
+##   - name: KAFKA_CFG_BACKGROUND_THREADS
+##     value: "10"
+extraEnvVars: []
 
 service:
   type: NodePort
