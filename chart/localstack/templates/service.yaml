@@ -3,35 +3,27 @@ kind: Service
 metadata:
   name: {{ include "localstack.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "localstack.name" . }}
-    helm.sh/chart: {{ include "localstack.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "localstack.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
+  {{- if or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort") }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy | quote }}
+  {{- end }}
+  {{- if and (eq .Values.service.type "LoadBalancer") (not (empty .Values.service.loadBalancerIP)) }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
   ports:
-    - name: http
-      protocol: TCP
-      port: {{ .Values.service.port }}
-      targetPort: http
-      {{- if contains "NodePort" .Values.service.type }}
-      {{- if .nodePort }}
-      nodePort: {{ .nodePort }}
+    - name: edgeport
+      port: {{ .Values.service.edgePort }}
+      targetPort: {{ .Values.service.edgePort }}
+      {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.nodePorts.edgePort)) }}
+      nodePort: {{ .Values.nodePorts.edgePort }}
       {{- end }}
+    - name: esport
+      port: {{ .Values.service.esPort }}
+      targetPort: {{ .Values.service.esPort }}
+      {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.nodePorts.esPort)) }}
+      nodePort: {{ .Values.nodePorts.esPort }}
       {{- end }}
-  {{- range $index, $val := .Values.localstack.services }}
-  {{- if $val.enabled }}
-    - name: {{ $val.name }}
-      protocol: TCP
-      port: {{ $val.externalPort }}
-      targetPort: {{ $val.internalPort }}
-      {{- if contains "NodePort" .Values.service.type }}
-      {{- if $val.nodePort }}
-      nodePort: {{ $val.nodePort }}
-      {{- end }}
-      {{- end }}
-  {{- end }}
-  {{- end }}
   selector:
-    app.kubernetes.io/name: {{ include "localstack.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "localstack.selectorLabels" . | nindent 4 }}
