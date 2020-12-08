@@ -1,0 +1,26 @@
+apiVersion: v1
+entries:
+  localstack:
+  - annotations:
+      category: Infrastructure
+    apiVersion: v2
+    appVersion: latest
+    created: "2020-12-08T09:01:57.710184088Z"
+    description: A fully functional local AWS cloud stack
+    digest: f1c684df099c774ea7eb3c8ab230a90d8fd5187d64fe50f6855191fd872f15dd
+    icon: https://github.com/localstack/localstack/raw/master/localstack/dashboard/web/img/localstack.png
+    keywords:
+    - aws
+    - localstack
+    maintainers:
+    - email: waldemar.hummer@gmail.com
+      name: Waldemar Hummer
+    name: localstack
+    sources:
+    - https://localstack.cloud/
+    - https://github.com/localstack/localstack
+    type: application
+    urls:
+    - https://github.com/localstack/helm-charts/releases/download/localstack-0.1.1/localstack-0.1.1.tgz
+    version: 0.1.1
+generated: "2020-12-08T09:01:57.589382622Z"
