@@ -1,11 +1,11 @@
 name: Release Helm Chart
 
-on: 
+on:
     push:
       paths:
         - 'chart/**'
       branches:
-        - master
+        - main
 
 jobs:
   release:
