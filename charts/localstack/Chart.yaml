@@ -2,7 +2,7 @@ annotations:
   category: Infrastructure
 apiVersion: v2
 appVersion: "latest"
-version: 0.1.1
+version: 0.1.2
 name: localstack
 description: A fully functional local AWS cloud stack
 type: application
@@ -16,3 +16,7 @@ icon: https://github.com/localstack/localstack/raw/master/localstack/dashboard/w
 maintainers:
 - name: Waldemar Hummer
   email: waldemar.hummer@gmail.com
+dependencies:
+  - name: common
+    version: 1.x.x
+    repository: https://charts.bitnami.com/bitnami
