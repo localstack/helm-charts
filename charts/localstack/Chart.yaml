@@ -16,3 +16,7 @@ icon: https://github.com/localstack/localstack/raw/master/localstack/dashboard/w
 maintainers:
 - name: Waldemar Hummer
   email: waldemar.hummer@gmail.com
+dependencies:
+  - name: common
+    version: 1.x.x
+    repository: https://charts.bitnami.com/bitnami
