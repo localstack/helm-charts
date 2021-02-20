@@ -1,9 +1,11 @@
 name: Release Helm Chart
 
 on:
-    push:
-      branches:
-        - main
+  push:
+    paths-ignore:
+      - 'README.md'
+    branches:
+      - main
 
 jobs:
   release:
