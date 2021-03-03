@@ -46,16 +46,20 @@ debug: false
 ## extraEnvVars:
 ##   - name: DEFAULT_REGION
 ##     value: "us-east-1"
-extraEnvVars: []
+extraEnvVars:
+  - name: SERVICES
+    value: "es"
 
 service:
   type: NodePort
-  edgePort: 4566
-  esPort: 4571
 
-nodePorts:
-  edgePort: "31566"
-  esPort: "31571"
+apiServices:
+  - name: edge
+    targetPort: 4566
+    nodePort: 31566
+  - name: es
+    targetPort: 4571
+    nodePort: 31571
 
 ingress:
   enabled: false

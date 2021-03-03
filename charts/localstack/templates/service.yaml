@@ -13,17 +13,13 @@ spec:
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}
   ports:
-    - name: edgeport
-      port: {{ .Values.service.edgePort }}
-      targetPort: {{ .Values.service.edgePort }}
-      {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.nodePorts.edgePort)) }}
-      nodePort: {{ .Values.nodePorts.edgePort }}
+    {{- range .Values.apiServices }}
+    - name: {{ .name }}
+      port: {{ .targetPort }}
+      targetPort: {{ .targetPort }}
+      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .nodePort)) }}
+      nodePort: {{ .nodePort }}
       {{- end }}
-    - name: esport
-      port: {{ .Values.service.esPort }}
-      targetPort: {{ .Values.service.esPort }}
-      {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.nodePorts.esPort)) }}
-      nodePort: {{ .Values.nodePorts.esPort }}
-      {{- end }}
+    {{- end }}
   selector:
     {{- include "localstack.selectorLabels" . | nindent 4 }}
