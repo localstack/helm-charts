@@ -13,7 +13,13 @@ spec:
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}
   ports:
-    {{- range .Values.apiServices }}
+    - name: {{ .Values.service.edgeService.name }}
+      port: {{ .Values.service.edgeService.targetPort }}
+      targetPort: {{ .Values.service.edgeService.targetPort }}
+      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .Values.service.edgeService.nodePort)) }}
+      nodePort: {{ .Values.service.edgeService.nodePort }}
+      {{- end }}
+    {{- range .Values.service.apiServices }}
     - name: {{ .name }}
       port: {{ .targetPort }}
       targetPort: {{ .targetPort }}

@@ -52,14 +52,14 @@ extraEnvVars:
 
 service:
   type: NodePort
-
-apiServices:
-  - name: edge
+  edgeService:
+    name: edge
     targetPort: 4566
     nodePort: 31566
-  - name: es
-    targetPort: 4571
-    nodePort: 31571
+  apiServices:
+    - name: es
+      targetPort: 4571
+      nodePort: 31571
 
 ingress:
   enabled: false
