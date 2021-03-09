@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  creationTimestamp: null
+  name: release
+spec:
+  pipelineSpec:
+    tasks:
+    - name: from-build-pack
+      resources: {}
+      taskSpec:
+        metadata: {}
+        stepTemplate:
+          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/helm/release.yaml@versionStream
+          name: ""
+          resources:
+            requests:
+              cpu: 400m
+              memory: 512Mi
+          workingDir: /workspace/source
+        steps:
+        - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
+          name: ""
+          resources: {}
+        - name: next-version
+          resources: {}
+          script: |
+            #!/usr/bin/env sh
+            ls -al ../source/
+            jx-release-version -previous-version=from-file:charts/localstack/Chart.yaml> VERSION
+        - name: jx-variables
+          resources: {}
+        - name: promote-changelog
+          resources: {}
+        - name: promote-helm-release
+          resources: {}
+        - name: promote-jx-promote
+          resources: {}
+  podTemplate: {}
+  serviceAccountName: tekton-bot
+  timeout: 240h0m0s
+status: {}
