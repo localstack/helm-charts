@@ -53,10 +53,6 @@ service:
   edgePort: 4566
   esPort: 4571
 
-nodePorts:
-  edgePort: "31566"
-  esPort: "31571"
-
 ingress:
   enabled: false
   annotations: {}
