@@ -34,8 +34,6 @@ spec:
           resources: {}
         - name: check-registry
           resources: {}
-        - name: build-container-build
-          resources: {}
         - name: promote-helm-release
           resources: {}
         - name: promote-jx-promote
