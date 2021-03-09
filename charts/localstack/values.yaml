@@ -49,7 +49,7 @@ debug: false
 extraEnvVars: []
 
 service:
-  type: NodePort
+  type: LoadBalancer
   edgePort: 4566
   esPort: 4571
 
