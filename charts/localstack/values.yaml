@@ -54,8 +54,9 @@ service:
   esPort: 4571
 
 nodePorts:
-  edgePort: "4566"
-  esPort: "4571"
+  edgePort: "31566"
+  esPort: "31571"
+
 
 
 ingress:
@@ -66,7 +67,7 @@ ingress:
   namespaceSubDomain: -jx.
   hosts:
     - host: ""
-      paths: []
+      paths: ["/"]
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
