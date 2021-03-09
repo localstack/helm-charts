@@ -1,4 +1,4 @@
-# LocalStack Helm Charts
+# LocalStack Helm Charts -
 
 Helm Charts for LocalStack. Details following soon.
 
