@@ -54,7 +54,7 @@ service:
   esPort: 4571
 
 nodePorts:
-  edgePort: "4571"
+  edgePort: "4566"
   esPort: "4571"
 
 
