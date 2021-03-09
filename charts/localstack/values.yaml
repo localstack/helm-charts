@@ -49,7 +49,7 @@ debug: false
 extraEnvVars: []
 
 service:
-  type: LoadBalancer
+  type: NodePort
   edgePort: 4566
   esPort: 4571
 
@@ -60,7 +60,7 @@ nodePorts:
 
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
