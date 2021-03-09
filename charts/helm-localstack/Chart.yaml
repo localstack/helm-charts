@@ -3,7 +3,7 @@ annotations:
 apiVersion: v2
 appVersion: "latest"
 version: 0.1.2
-name: localstack
+name: helm-localstack
 description: A fully functional local AWS cloud stack
 type: application
 keywords:
@@ -14,9 +14,9 @@ sources:
 - https://github.com/localstack/localstack
 icon: https://github.com/localstack/localstack/raw/master/localstack/dashboard/web/img/localstack.png
 maintainers:
-- name: Waldemar Hummer
+name: helm-localstack
   email: waldemar.hummer@gmail.com
 dependencies:
-  - name: common
+name: helm-localstack
     version: 1.x.x
     repository: https://charts.bitnami.com/bitnami
