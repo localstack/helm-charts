@@ -11,7 +11,7 @@ spec:
       taskSpec:
         metadata: {}
         stepTemplate:
-          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/helm/release.yaml@versionStream
+          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/docker-helm/release.yaml@versionStream
           name: ""
           resources:
             requests:
@@ -29,6 +29,10 @@ spec:
             ls -al ../source/
             jx-release-version -previous-version=from-file:charts/localstack/Chart.yaml> VERSION
         - name: jx-variables
+          resources: {}
+        - name: check-registry
+          resources: {}
+        - name: build-container-build
           resources: {}
         - name: promote-changelog
           resources: {}

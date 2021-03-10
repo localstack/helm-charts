@@ -11,7 +11,7 @@ spec:
       taskSpec:
         metadata: {}
         stepTemplate:
-          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/helm/pullrequest.yaml@versionStream
+          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/docker-helm/pullrequest.yaml@versionStream
           name: ""
           resources:
             requests:
@@ -24,7 +24,9 @@ spec:
           resources: {}
         - name: jx-variables
           resources: {}
-        - name: build-helm-build
+        - name: check-registry
+          resources: {}
+        - name: build-container-build
           resources: {}
   podTemplate: {}
   serviceAccountName: tekton-bot
