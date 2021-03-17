@@ -1,6 +1,6 @@
 # LocalStack Helm Charts
 
-Helm Charts for LocalStack. Details following soon.
+Helm Charts for LocalStack.
 
 ## TL;DR
 
@@ -12,8 +12,6 @@ $ helm install my-release localstack-charts/localstack
 ## Introduction
 
 LocalStack provides an easy-to-use test/mocking framework for developing Cloud applications.
-
-Currently, the focus is primarily on supporting the AWS cloud stack.
 
 ## Installing the Chart
 
@@ -105,3 +103,11 @@ The following table lists the configurable parameters of the Localstack chart an
 | `ingress.hosts[0].host`                              | Hostname to your Localstack Ingress                                                                                                                                                                                                   | `nil`                                                   |
 | `ingress.hosts[0].paths`                             | Path within the url structure                                                                                                                                                                                                         | `[]`                                                    |
 | `ingress.tls`                                        | Exsisting TLS certificates for ingress                                                                                                                                                                                                | `[]`                                                    |
+
+## Change Log
+
+* v0.1.3: Allow easy exposure of multiple API services from values config
+
+## License
+
+This code is released under the Apache License, Version 2.0 (see LICENSE.txt).

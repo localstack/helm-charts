@@ -1,12 +1,18 @@
 # LocalStack Helm Charts
 
-Helm Charts for LocalStack. Details following soon.
+Helm Charts for LocalStack.
 
-## Add the localstack repository to Helm:
+## Quick Start
+
+Add the LocalStack repository to Helm:
 
 ```
 helm repo add localstack-charts https://localstack.github.io/helm-charts
 ```
+
+## Details
+
+Please refer to [charts/localstack/README.md](charts/localstack/README.md) for more details.
 
 ## License
 

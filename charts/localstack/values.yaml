@@ -46,9 +46,9 @@ debug: false
 ## extraEnvVars:
 ##   - name: DEFAULT_REGION
 ##     value: "us-east-1"
-extraEnvVars:
-  - name: SERVICES
-    value: "es"
+##   - name: SERVICES
+##     value: "serverless,sqs,es"
+extraEnvVars: []
 
 service:
   type: NodePort
