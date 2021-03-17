@@ -32,20 +32,22 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: edgeport
-              containerPort: {{ .Values.service.edgePort }}
+            - name: {{ .Values.service.edgeService.name }}
+              container: {{ .Values.service.edgeService.targetPort }}
               protocol: TCP
-            - name: esport
-              containerPort: {{ .Values.service.esPort }}
+            {{- range .Values.service.apiServices }}
+            - name: {{ .name }}
+              containerPort: {{ .targetPort }}
               protocol: TCP
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /health
-              port: edgeport
+              port: {{ .Values.service.edgeService.name }}
           readinessProbe:
             httpGet:
               path: /health
-              port: edgeport
+              port: {{ .Values.service.edgeService.name }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
