@@ -50,6 +50,19 @@ debug: false
 ##     value: "serverless,sqs,es"
 extraEnvVars: []
 
+livenessProbe:
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 3
+readinessProbe:
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 3
+
 service:
   type: NodePort
   edgeService:

@@ -41,10 +41,12 @@ spec:
               protocol: TCP
             {{- end }}
           livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
             httpGet:
               path: /health
               port: {{ .Values.service.edgeService.name }}
           readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
             httpGet:
               path: /health
               port: {{ .Values.service.edgeService.name }}
