@@ -110,6 +110,7 @@ The following table lists the configurable parameters of the Localstack chart an
 
 ## Change Log
 
+* v0.1.4: Allow customizing livenessProbe/readinessProbe
 * v0.1.3: Allow easy exposure of multiple API services from values config
 
 ## License
