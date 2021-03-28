@@ -1,0 +1,33 @@
+name: Test Helm Chart
+
+on: push
+
+jobs:
+  kubeval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.1
+      - name: template
+        run: |
+          CHARTS=charts/localstack
+          TMP=./tmp/templates
+
+          mkdir -p $TMP
+
+          cd $CHARTS
+          helm dependency update
+          cd -
+
+          helm template $CHARTS > ${TMP}/chart-lint-template-out.yml
+          cat ${TMP}/chart-lint-template-out.yml
+      - name: test
+        uses: instrumenta/kubeval-action@master
+        with:
+          files: ./tmp/templates
