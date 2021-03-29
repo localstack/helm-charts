@@ -25,8 +25,7 @@ jobs:
           helm dependency update
           cd -
 
-          helm template $CHARTS > ${TMP}/chart-lint-template-out.yml
-          cat ${TMP}/chart-lint-template-out.yml
+          helm template $CHARTS | tee ${TMP}/chart-lint-template-out.yml
       - name: test
         uses: instrumenta/kubeval-action@master
         with:
