@@ -33,7 +33,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: {{ .Values.service.edgeService.name }}
-              container: {{ .Values.service.edgeService.targetPort }}
+              containerPort: {{ .Values.service.edgeService.targetPort }}
               protocol: TCP
             {{- range .Values.service.apiServices }}
             - name: {{ .name }}
