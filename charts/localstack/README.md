@@ -83,8 +83,12 @@ The following table lists the configurable parameters of the Localstack chart an
 | `resources.requests`                                 | The requested resources for Localstack containers                                                                                                                                                                                     | `{}`                                                    |
 | `livenessProbe`                                      | Liveness probe configuration for Localstack containers                                                                                                                                                                                | Same with [Kubernetes defaults][k8s-probe]  |
 | `readinessProbe`                                     | Readiness probe configuration for Localstack containers                                                                                                                                                                               | Same with [Kubernetes defaults][k8s-probe]  |
+| `mountDind.enabled`                                            | Specify the mount of Docker daemon into Pod to enable some AWS services that got runtime dependencies such as Lambdas on GoLang                                                                                                                                                                     | `false`                             |
+| `mountDind.forceTLS`                                            | Specify TLS enforcement on Docker daemon communications                                                                                                                                                                     | `true`                              |
+| `mountDind.image`                                            | Specify DinD image tag                                                                                                                                                                     | `docker:20.10-dind`                            |
 
 [k8s-probe]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+
 
 ### RBAC parameters
 
@@ -110,6 +114,7 @@ The following table lists the configurable parameters of the Localstack chart an
 
 ## Change Log
 
+* v0.2.0: Add support for Docker-in-Docker functionality
 * v0.1.5: Allow customizing livenessProbe/readinessProbe
 * v0.1.4: Fix a typo that breaks the installation
 * v0.1.3: Allow easy exposure of multiple API services from values config
