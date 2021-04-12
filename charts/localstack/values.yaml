@@ -41,6 +41,14 @@ debug: false
 # lambdaExecutor: ""
 # dataDir: ""
 
+# This will enable the Docker daemon binding and allow
+# Localstack to provide Lambdas and other AWS services
+# who got container runtime dependencies
+mountDind:
+  enabled: false
+  forceTLS: true
+  image: "docker:20.10-dind"
+
 ## All the parameters from the configuatioan can be added using extraEnvVars.
 ## Ref. https://github.com/localstack/localstack#configurations
 ## extraEnvVars:
