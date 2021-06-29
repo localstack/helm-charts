@@ -92,6 +92,9 @@ spec:
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
+            {{- if .Values.initScriptsVolume.enabled }}
+            - name: {{ template "localstack.fullname" . }}-init-scripts-config
+              mountPath: /docker-entrypoint-initaws.d
         {{- if .Values.mountDind.enabled }}
         - name: dind
           image: {{ .Values.mountDind.image | quote }}
@@ -132,5 +135,10 @@ spec:
       {{- if .Values.mountDind.forceTLS }}
       - name: dind-tls
         emptyDir: {}
+      {{- if .Values.initScriptsVolume.enabled }}
+      - name: {{ template "localstack.fullname" . }}-init-scripts-config
+        configMap:
+          name: {{ template "localstack.fullname" . }}-init-scripts-config
+      {{- end }}
       {{- end }}
       {{- end }}
