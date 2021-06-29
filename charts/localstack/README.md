@@ -69,6 +69,7 @@ The following table lists the configurable parameters of the Localstack chart an
 | `lambdaExecutor`                                     | Specify Method to use for executing Lambda functions (partially supported)                                                                                                                                                            | `docker`                                                |
 | `dataDir`                                            | Specify directory for saving persistent data (Not supported yet)                                                                                                                                                                      | `nil` (Localstack Default)                              |
 | `extraEnvVars`                                       | Extra environment variables to be set on Localstack primary containers                                                                                                                                                                | `nil` (Localstack Default)                              |
+| `enableStartupScripts`                               | Mount `/docker-entrypoint-initaws.d` to run startup scripts with `{{ template "localstack.fullname" . }}-init-scripts-config` configMap                                                                                   | `nil` (Localstack Default)                              |
 
 ### Deployment parameters
 

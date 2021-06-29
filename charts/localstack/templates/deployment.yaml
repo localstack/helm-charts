@@ -57,6 +57,11 @@ spec:
             - name: dind-tls
               mountPath: /opt/docker/tls
           {{- end }}
+          {{- if .Values.enableStartupScripts }}
+          volumeMounts:
+            - name: {{ template "localstack.fullname" . }}-init-scripts-config
+              mountPath: /docker-entrypoint-initaws.d
+          {{- end }}
           env:
             - name: DEBUG
               value: {{ ternary "1" "0" .Values.debug | quote }}
@@ -133,4 +138,9 @@ spec:
       - name: dind-tls
         emptyDir: {}
       {{- end }}
+      {{- end }}
+      {{- if .Values.enableStartupScripts }}
+      - name: {{ template "localstack.fullname" . }}-init-scripts-config
+        configMap:
+          name: {{ template "localstack.fullname" . }}-init-scripts-config
       {{- end }}
