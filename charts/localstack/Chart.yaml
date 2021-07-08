@@ -2,7 +2,7 @@ annotations:
   category: Infrastructure
 apiVersion: v2
 appVersion: latest
-version: 0.2.2
+version: 0.2.3
 name: localstack
 description: A fully functional local AWS cloud stack
 type: application
@@ -12,7 +12,7 @@ keywords:
 sources:
 - https://localstack.cloud/
 - https://github.com/localstack/localstack
-icon: https://github.com/localstack/localstack/raw/master/localstack/dashboard/web/img/localstack.png
+icon: https://localstack.cloud/images/localstack.png
 maintainers:
 - name: Waldemar Hummer
   email: waldemar.hummer@gmail.com
