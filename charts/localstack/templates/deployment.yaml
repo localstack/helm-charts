@@ -73,9 +73,9 @@ spec:
             - name: LAMBDA_EXECUTOR
               value: {{ .Values.lambdaExecutor | quote }}
             {{- end }}
-            {{- if .Values.dataDir }}
+            {{- if .Values.persistence.enabled }}
             - name: DATA_DIR
-              value: {{ .Values.dataDir | quote }}
+              value: /tmp/localstack/data
             {{- end }}
             {{- if .Values.startServices }}
             - name: SERVICES
@@ -97,6 +97,11 @@ spec:
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
+          {{- if .Values.persistence.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: /tmp/localstack
+          {{- end }}
         {{- if .Values.mountDind.enabled }}
         - name: dind
           image: {{ .Values.mountDind.image | quote }}
@@ -131,6 +136,11 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
+      {{- if .Values.persistence.enabled }}
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.existingClaim | default (include "common.names.fullname" .) }}
+      {{- end }}
       {{- if .Values.mountDind.enabled }}
       - name: dind-storage
         emptyDir: {}
