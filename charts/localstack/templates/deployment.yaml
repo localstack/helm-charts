@@ -52,15 +52,20 @@ spec:
               port: {{ .Values.service.edgeService.name }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS) }}
+          {{- if coalesce (and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS)) .Values.persistence.enabled .Values.persistence.enabled }}
           volumeMounts:
-            - name: dind-tls
-              mountPath: /opt/docker/tls
-          {{- end }}
-          {{- if .Values.enableStartupScripts }}
-          volumeMounts:
-            - name: {{ template "localstack.fullname" . }}-init-scripts-config
-              mountPath: /docker-entrypoint-initaws.d
+            {{- if and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS) }}
+              - name: dind-tls
+                mountPath: /opt/docker/tls
+            {{- end }}
+            {{- if .Values.enableStartupScripts }}
+              - name: {{ template "localstack.fullname" . }}-init-scripts-config
+                mountPath: /docker-entrypoint-initaws.d
+            {{- end }}
+            {{- if .Values.persistence.enabled }}
+              - name: data
+                mountPath: /tmp/localstack
+            {{- end }}
           {{- end }}
           env:
             - name: DEBUG
@@ -97,11 +102,6 @@ spec:
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
-          {{- if .Values.persistence.enabled }}
-          volumeMounts:
-            - name: data
-              mountPath: /tmp/localstack
-          {{- end }}
         {{- if .Values.mountDind.enabled }}
         - name: dind
           image: {{ .Values.mountDind.image | quote }}
