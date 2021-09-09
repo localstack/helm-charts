@@ -37,15 +37,15 @@ spec:
         paths:
           {{- range .paths }}
           {{- if $hasAPIv1 }}
-          - path: {{ . }}
-            pathType: Prefix
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
           {{- else -}}
-          - path: {{ . }}
+          - path: {{ .path }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
