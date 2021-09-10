@@ -8,11 +8,20 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
-    "helm.sh/hook": test-success
+    "helm.sh/hook": test
+    # "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   containers:
-    - name: wget
+    - name: wget-edge
       image: busybox
       command: ['wget']
-      args:  ['{{ include "localstack.fullname" . }}:{{ .Values.service.edgePort }}']
+      args: ['{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}/health']
+    {{- range .Values.service.apiServices }}
+    {{- if or (empty $.Values.startServices) (contains .name ($.Values.startServices)) -}}
+    - name: wget-{{ .name }}
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "localstack.fullname" $ }}:{{ .targetPort }}/health']
+    {{- end -}}
+    {{- end }}
   restartPolicy: Never
