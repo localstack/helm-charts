@@ -1,3 +1,5 @@
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/localstack)](https://artifacthub.io/packages/search?repo=localstack)
+
 # LocalStack Helm Charts
 
 Helm Charts for LocalStack.
@@ -122,8 +124,21 @@ The following table lists the configurable parameters of the Localstack chart an
 | `persistence.dataSource`                             | Custom PVC data source                                                                                                                                                                                                                | `{}`                                                    |
 | `persistence.existingClaim`                          | The name of an existing PVC to use for persistence                                                                                                                                                                                    | `""`                                                    |
 
+## Contributing
+
+This repo is largely community driven - we welcome your contributions!
+
+When raising a pull request with a fix or new feature, please make sure to:
+* Briefly describe the change (purpose, rationale) in the PR
+* Add a short note to the Change Log in this README
+* Bump the version in Chart.yaml (the chart will get automatically deployed via the CI pipeline)
+
 ## Change Log
 
+* v0.3.5: Add namespace variable to metadata of resources, fix enableStartupScripts check to properly mount the config map volume
+* v0.3.4: Fix volume mounts exclusion and tests
+* v0.3.3: Fix ingress, annotation defaults, and pathType in chart config
+* v0.3.2: Update ingress API version and support helm3
 * v0.3.0: Add support for persistence
 * v0.2.0: Add support for Docker-in-Docker functionality
 * v0.1.5: Allow customizing livenessProbe/readinessProbe

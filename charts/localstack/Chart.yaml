@@ -2,9 +2,9 @@ annotations:
   category: Infrastructure
 apiVersion: v2
 appVersion: latest
-version: 0.3.4
+version: 0.3.5
 name: localstack
-description: A fully functional local AWS cloud stack
+description: LocalStack - a fully functional local AWS cloud stack
 type: application
 keywords:
   - aws
