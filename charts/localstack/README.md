@@ -136,7 +136,7 @@ When raising a pull request with a fix or new feature, please make sure to:
 
 ## Change Log
 
-* v0.3.5: Add the ability to deploy extra objects
+* v0.3.6: Add the ability to deploy extra objects
 * v0.3.5: Add namespace variable to metadata of resources, fix enableStartupScripts check to properly mount the config map volume
 * v0.3.4: Fix volume mounts exclusion and tests
 * v0.3.3: Fix ingress, annotation defaults, and pathType in chart config
