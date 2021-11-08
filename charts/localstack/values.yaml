@@ -3,6 +3,13 @@
 
 replicaCount: 1
 
+## @param updateStrategy.type deployment strategy type
+## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+## NOTE: Set it to `Recreate` if you use a PV that cannot be mounted on multiple pods
+##
+updateStrategy:
+  type: RollingUpdate
+
 image:
   repository: localstack/localstack
   tag: "latest"

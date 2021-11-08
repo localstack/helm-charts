@@ -78,6 +78,7 @@ The following table lists the configurable parameters of the Localstack chart an
 | Parameter                                            | Description                                                                                                                                                                                                                           | Default                                                 |
 |------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
 | `replicaCount`                                       | Number of Localstack pods                                                                                                                                                                                                             | `1`                                                     |
+| `updateStrategy.type`                                | Update strategy type                                                                                                                                                                                                              | `RollingUpdate`                                         |
 | `nodeSelector`                                       | Node labels for pod assignment                                                                                                                                                                                                        | `{}`                                                    |
 | `tolerations`                                        | Tolerations for pod assignment                                                                                                                                                                                                        | `[]`                                                    |
 | `tolerations`                                        | Tolerations for pod assignment                                                                                                                                                                                                        | `[]`                                                    |
@@ -136,6 +137,7 @@ When raising a pull request with a fix or new feature, please make sure to:
 
 ## Change Log
 
+* v0.3.7: Add the ability to set update strategy
 * v0.3.6: Add the ability to deploy extra objects
 * v0.3.5: Add namespace variable to metadata of resources, fix enableStartupScripts check to properly mount the config map volume
 * v0.3.4: Fix volume mounts exclusion and tests
