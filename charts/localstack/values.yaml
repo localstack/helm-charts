@@ -23,6 +23,9 @@ fullnameOverride: ""
 ##
 extraDeploy: []
 
+## Add additional annotations to every resource
+extraAnnotations: {}
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -149,3 +152,14 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Mount /docker-entrypoint-initaws.d to run startup scripts with
+# {{ template "localstack.fullname" . }}-init-scripts-config configMap
+enableStartupScripts: false
+
+# Add startup scripts content used by {{ template "localstack.fullname" . }}-init-scripts-config configMap
+# to run at localstack startup
+# startupScriptContent: |
+  # awslocal s3 mb s3://testbucket
+  # awslocal sqs create-queue --queue-name test-queue
+startupScriptContent: ""
