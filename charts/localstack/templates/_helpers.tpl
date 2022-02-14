@@ -60,3 +60,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Add extra annotations to every resource
+*/}}
+{{- define "localstack.annotations" -}}
+{{- with .Values.extraAnnotations }}
+{{- range $annotation, $value := index . }}
+{{ $annotation }}: {{ tpl $value $ | quote }}
+{{- end }}
+{{- end }}
+{{- end }}
