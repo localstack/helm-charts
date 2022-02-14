@@ -5,10 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "localstack.labels" . | nindent 4 }}
-  {{- with .Values.deploymentAnnotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- include "localstack.annotations" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy: {{- include "common.tplvalues.render" (dict "value" .Values.updateStrategy "context" $ ) | nindent 4 }}
@@ -21,6 +19,7 @@ spec:
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+        {{- include "localstack.annotations" . | nindent 8 }}
       labels:
         {{- include "localstack.selectorLabels" . | nindent 8 }}
     spec:

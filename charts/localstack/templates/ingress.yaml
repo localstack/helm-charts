@@ -20,6 +20,7 @@ metadata:
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+    {{- include "localstack.annotations" . | nindent 4 }}
 spec:
 {{- if .Values.ingress.tls }}
   tls:

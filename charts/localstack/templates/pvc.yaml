@@ -6,10 +6,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "localstack.labels" . | nindent 4 }}
-  {{- with .Values.pvcAnnotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- include "localstack.annotations" . | nindent 4 }}
 spec:
   accessModes:
   {{- if not (empty .Values.persistence.accessModes) }}

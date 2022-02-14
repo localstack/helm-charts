@@ -23,6 +23,9 @@ fullnameOverride: ""
 ##
 extraDeploy: []
 
+## Add additional annotations to every resource
+extraAnnotations: {}
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -31,8 +34,6 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
-
-deploymentAnnotations: {}
 
 podAnnotations: {}
 
@@ -84,7 +85,6 @@ readinessProbe:
   failureThreshold: 3
 
 service:
-  annotations: {}
   type: NodePort
   edgeService:
     name: edge
@@ -155,10 +155,11 @@ affinity: {}
 
 # Mount /docker-entrypoint-initaws.d to run startup scripts with
 # {{ template "localstack.fullname" . }}-init-scripts-config configMap
-enableStartupScripts: true
+enableStartupScripts: false
 
 # Add startup scripts content used by {{ template "localstack.fullname" . }}-init-scripts-config configMap
 # to run at localstack startup
-startupScriptContent: |
-  # Add startup scripts content used by {{ template "localstack.fullname" . }}-init-scripts-config configMap 
-  # to run at localstack startup 
+# startupScriptContent: |
+  # awslocal s3 mb s3://testbucket
+  # awslocal sqs create-queue --queue-name test-queue
+startupScriptContent: ""

@@ -6,11 +6,9 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
      {{- include "localstack.labels" . | nindent 4 }}
-  {{- with .Values.configMap.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- include "localstack.annotations" . | nindent 4 }}
 data:
   {{ template "localstack.fullname" . }}-init-scripts-config.sh: |
-    {{ .Values.startupScriptContent | nindent 4}}
+    {{- tpl .Values.startupScriptContent $ | nindent 4 }}
 {{- end}}
