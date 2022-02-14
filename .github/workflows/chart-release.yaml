@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - 'README.md'
     branches:
-      - main
+      - nextdoor
 
 jobs:
   release:
