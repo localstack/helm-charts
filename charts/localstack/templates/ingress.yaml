@@ -16,11 +16,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "localstack.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-    {{- include "localstack.annotations" . | nindent 4 }}
-    {{- with .Values.ingress.annotations }}
-    {{- tpl (toYaml .) $ | nindent 4 }}
-    {{- end }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
 {{- if .Values.ingress.tls }}
   tls:
