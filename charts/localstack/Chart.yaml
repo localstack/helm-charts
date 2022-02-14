@@ -18,5 +18,5 @@ maintainers:
   email: waldemar.hummer@gmail.com
 dependencies:
   - name: common
-    version: 1.x.x
+    version: 1.11.1
     repository: https://charts.bitnami.com/bitnami
