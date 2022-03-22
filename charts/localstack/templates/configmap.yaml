@@ -1,0 +1,14 @@
+{{- if .Values.enableStartupScripts -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "localstack.fullname" . }}-init-scripts-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+     {{- include "localstack.labels" . | nindent 4 }}
+  annotations:
+    {{- include "localstack.annotations" . | nindent 4 }}
+data:
+  {{ template "localstack.fullname" . }}-init-scripts-config.sh: |
+    {{- tpl .Values.startupScriptContent $ | nindent 4 }}
+{{- end}}
