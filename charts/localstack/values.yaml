@@ -163,3 +163,11 @@ enableStartupScripts: false
   # awslocal s3 mb s3://testbucket
   # awslocal sqs create-queue --queue-name test-queue
 startupScriptContent: ""
+
+criAuth:
+  enable: false
+  imageCredentials:
+    registry: quay.io
+    username: someone
+    password: sillyness
+    email: someone@host.com
