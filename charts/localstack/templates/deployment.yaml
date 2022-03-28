@@ -159,7 +159,7 @@ spec:
         persistentVolumeClaim:
           claimName: {{ .Values.persistence.existingClaim | default (include "common.names.fullname" .) }}
       {{- end }}
-      {{- if .Values.criAuth.enabled }}
+      {{- if .Values.criRegistryAuth.enabled }}
       - name: docker-config
         secret:
           secretName: {{ include "localstack.name" . }}-cri-auth

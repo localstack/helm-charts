@@ -76,7 +76,7 @@ Add extra annotations to every resource
 Add imagePullSecret
 */}}
 {{- define "imagePullSecret" }}
-{{- with .Values.criAuth.imageCredentials }}
+{{- with .Values.criRegistryAuth.imageCredentials }}
 {{- printf "{\"auths\":{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}}" .registry .username .password .email (printf "%s:%s" .username .password | b64enc) | b64enc }}
 {{- end }}
 {{- end }}

@@ -164,8 +164,8 @@ enableStartupScripts: false
   # awslocal sqs create-queue --queue-name test-queue
 startupScriptContent: ""
 
-criAuth:
-  enable: false
+criRegistryAuth:
+  enabled: false
   imageCredentials:
     registry: quay.io
     username: someone
