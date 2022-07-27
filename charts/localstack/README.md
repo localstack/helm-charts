@@ -136,6 +136,8 @@ When raising a pull request with a fix or new feature, please make sure to:
 
 ## Change Log
 
+* v0.4.1: Add the ability to set service annotations
+* v0.4.0: Add the ability to set annotations on all objects globally and specifically add localstack-init-scripts-config.sh ConfigMap
 * v0.3.7: Add the ability to set update strategy
 * v0.3.6: Add the ability to deploy extra objects
 * v0.3.5: Add namespace variable to metadata of resources, fix enableStartupScripts check to properly mount the config map volume
