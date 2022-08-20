@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/localstack/helm-charts/actions/workflows/chart-release.yaml"><img alt="Twitter" src="https://github.com/localstack/helm-charts/actions/workflows/chart-release.yaml/badge.svg"></a>
+  <a href="https://github.com/localstack/helm-charts/actions/workflows/chart-release.yaml"><img alt="Helm Chart Status" src="https://github.com/localstack/helm-charts/actions/workflows/chart-release.yaml/badge.svg"></a>
   <a href="https://twitter.com/_localstack"><img alt="Twitter" src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social"></a>
 </p>
 
