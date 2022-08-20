@@ -1,4 +1,4 @@
-name: Release Helm Chart
+name: Release
 
 on:
   push:
