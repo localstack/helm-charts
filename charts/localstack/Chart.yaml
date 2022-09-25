@@ -14,8 +14,8 @@ sources:
 - https://github.com/localstack/localstack
 icon: https://localstack.cloud/images/localstack.png
 maintainers:
-- name: Waldemar Hummer
-  email: waldemar.hummer@gmail.com
+- name: LocalStack Team and Community
+  email: info@localstack.cloud
 dependencies:
   - name: common
     version: 1.11.1
