@@ -39,9 +39,9 @@ spec:
             - name: {{ .Values.service.edgeService.name }}
               containerPort: {{ .Values.service.edgeService.targetPort }}
               protocol: TCP
-            {{- range .Values.service.apiServices }}
-            - name: {{ .name }}
-              containerPort: {{ .targetPort }}
+            {{- range untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
+            - name: "ext-svc-{{ . }}"
+              containerPort: {{ . }}
               protocol: TCP
             {{- end }}
           livenessProbe:

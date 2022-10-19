@@ -25,13 +25,10 @@ spec:
       {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .Values.service.edgeService.nodePort)) }}
       nodePort: {{ .Values.service.edgeService.nodePort }}
       {{- end }}
-    {{- range .Values.service.apiServices }}
-    - name: {{ .name }}
-      port: {{ .targetPort }}
-      targetPort: {{ .targetPort }}
-      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .nodePort)) }}
-      nodePort: {{ .nodePort }}
-      {{- end }}
+    {{- range untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
+    - name: "external-service-port-{{ . }}"
+      port: {{ . }}
+      targetPort: "ext-svc-{{ . }}"
     {{- end }}
   selector:
     {{- include "localstack.selectorLabels" . | nindent 4 }}

@@ -90,10 +90,9 @@ service:
     name: edge
     targetPort: 4566
     nodePort: 31566
-  apiServices:
-    - name: es
-      targetPort: 4571
-      nodePort: 31571
+  externalServicePorts:
+    start: 4510
+    end: 4560
 
 ingress:
   enabled: false

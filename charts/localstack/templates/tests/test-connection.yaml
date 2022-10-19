@@ -16,12 +16,4 @@ spec:
       image: busybox
       command: ['wget']
       args: ['{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}/health']
-    {{- range .Values.service.apiServices -}}
-    {{- if or (empty $.Values.startServices) (contains .name ($.Values.startServices | default "")) }}
-    - name: wget-{{ .name }}
-      image: busybox
-      command: ['wget']
-      args: ['{{ include "localstack.fullname" $ }}:{{ .targetPort }}/health']
-    {{- end -}}
-    {{- end }}
   restartPolicy: Never
