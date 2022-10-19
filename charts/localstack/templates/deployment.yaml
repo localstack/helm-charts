@@ -74,6 +74,14 @@ spec:
           env:
             - name: DEBUG
               value: {{ ternary "1" "0" .Values.debug | quote }}
+            {{- if .Values.service.externalServicePorts.start }}
+            - name: EXTERNAL_SERVICE_PORTS_START
+              value: {{ .Values.service.externalServicePorts.start | quote }}
+            {{- end }}
+            {{- if .Values.service.externalServicePorts.end }}
+            - name: EXTERNAL_SERVICE_PORTS_END
+              value: {{ .Values.service.externalServicePorts.end | quote }}
+            {{- end }}
             {{- if .Values.kinesisErrorProbability }}
             - name: KINESIS_ERROR_PROBABILITY
               value: {{ .Values.kinesisErrorProbability | quote }}
