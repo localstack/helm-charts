@@ -86,6 +86,7 @@ readinessProbe:
 
 service:
   type: NodePort
+  annotations: {}
   edgeService:
     name: edge
     targetPort: 4566
