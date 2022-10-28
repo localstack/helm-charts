@@ -160,11 +160,23 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# All settings inside the lambda values section are only applicable to the new ASF lambda provider
 lambda:
-  # @param lambda.executor 
+  # The lambda runtime executor. 
+  # Depending on the value, LocalStack will execute lambdas either in docker containers or in kubernetes pods
+  # The value "kubernetes" depends on the service account and pod role being activated
   executor: "kubernetes"
+  # Image prefix for the kubernetes lambda images. The images will have to be pushed to that repository.
+  # Only applicable when executor is set to "kubernetes"
+  # Example: python3.9 runtime -> localstack/lambda-python:3.9
   image_prefix: "localstack/lambda-"
+  # Timeout for spawning new lambda execution environments.
+  # After that timeout, the environment (in essence pod/docker container) will be killed and restarted
+  # Increase if spawning pods / docker containers takes longer in your environment
   environment_timeout: 60
+  # Labels which will be assigned to the kubernetes pods spawned by the kubernetes executor.
+  # They will be set on all spawned pods.
+  # Only applicable when executor is set to "kubernetes"
   labels: {}
   # labels:
   #   label1: value1
