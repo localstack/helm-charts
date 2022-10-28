@@ -1,0 +1,13 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Release.Namespace | quote }}
+  name: {{ include "localstack.roleName" . }}
+  labels:
+    {{- include "localstack.labels" . | nindent 4 }}
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["*"]
+{{- end }}

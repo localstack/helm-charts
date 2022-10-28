@@ -60,6 +60,41 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+{{/*
+Create the role name for the pods/* role
+*/}}
+{{- define "localstack.roleName" -}}
+{{- if .Values.role.create }}
+{{- default (include "localstack.fullname" .) .Values.role.name }}
+{{- else }}
+{{- default "default" .Values.role.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the RoleBinding name for the service account
+*/}}
+{{- define "localstack.roleBindingName" -}}
+{{- if .Values.role.create }}
+{{- default (include "localstack.fullname" .) .Values.role.name }}
+{{- else }}
+{{- default "default" .Values.role.name }}
+{{- end }}
+{{- end }}
+
+{{- define "localstack.lambda.prepare_labels" -}}
+{{- if .Values.lambda.labels }}
+{{- range $key, $value := .Values.lambda.labels -}}
+  {{ $key }}={{ $value }},
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "localstack.lambda.labels" -}}
+{{- if include "localstack.lambda.prepare_labels" . -}}
+  {{ include "localstack.lambda.prepare_labels" . | trimSuffix "," }}
+{{- end }}
+{{- end }}
 
 {{/*
 Add extra annotations to every resource

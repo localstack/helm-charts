@@ -35,6 +35,16 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+role:
+  # Specifies whether a role & rolebinding with pods / * permissions should be created for the service account
+  # Necessary for kubernetes lambda executor
+  create: true
+  # Annotations to add to the role and rolebinding
+  annotations: {}
+  # The name of the role and rolebinding to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -148,6 +158,18 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+lambda:
+  # @param lambda.executor 
+  executor: "kubernetes"
+  image_prefix: "localstack/lambda-"
+  environment_timeout: 60
+  labels: {}
+  # labels:
+  #   label1: value1
+  #   label2: value2
+  #   label3: value3
+
 
 nodeSelector: {}
 
