@@ -18,6 +18,15 @@ spec:
   {{- if and (eq .Values.service.type "LoadBalancer") (not (empty .Values.service.loadBalancerIP)) }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
   {{- end }}
+  {{- if .Values.service.ipFamilies }}
+  ipFamilies:
+    {{- with .Values.service.ipFamilies }}
+    {{- tpl (toYaml .) $ | nindent 4 }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.service.ipFamilyPolicy }}
+  ipFamilyPolicy: {{ .Values.service.ipFamilyPolicy }}
+  {{- end }}
   ports:
     - name: {{ .Values.service.edgeService.name }}
       port: {{ .Values.service.edgeService.targetPort }}
@@ -25,13 +34,10 @@ spec:
       {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .Values.service.edgeService.nodePort)) }}
       nodePort: {{ .Values.service.edgeService.nodePort }}
       {{- end }}
-    {{- range .Values.service.apiServices }}
-    - name: {{ .name }}
-      port: {{ .targetPort }}
-      targetPort: {{ .targetPort }}
-      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .nodePort)) }}
-      nodePort: {{ .nodePort }}
-      {{- end }}
+    {{- range untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
+    - name: "external-service-port-{{ . }}"
+      port: {{ . }}
+      targetPort: "ext-svc-{{ . }}"
     {{- end }}
   selector:
     {{- include "localstack.selectorLabels" . | nindent 4 }}

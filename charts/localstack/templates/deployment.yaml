@@ -7,6 +7,9 @@ metadata:
     {{- include "localstack.labels" . | nindent 4 }}
   annotations:
     {{- include "localstack.annotations" . | nindent 4 }}
+    {{- with .Values.service.annotations }}
+    {{- tpl (toYaml .) $ | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy: {{- include "common.tplvalues.render" (dict "value" .Values.updateStrategy "context" $ ) | nindent 4 }}
@@ -39,9 +42,9 @@ spec:
             - name: {{ .Values.service.edgeService.name }}
               containerPort: {{ .Values.service.edgeService.targetPort }}
               protocol: TCP
-            {{- range .Values.service.apiServices }}
-            - name: {{ .name }}
-              containerPort: {{ .targetPort }}
+            {{- range untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
+            - name: "ext-svc-{{ . }}"
+              containerPort: {{ . }}
               protocol: TCP
             {{- end }}
           livenessProbe:
@@ -74,6 +77,14 @@ spec:
           env:
             - name: DEBUG
               value: {{ ternary "1" "0" .Values.debug | quote }}
+            {{- if .Values.service.externalServicePorts.start }}
+            - name: EXTERNAL_SERVICE_PORTS_START
+              value: {{ .Values.service.externalServicePorts.start | quote }}
+            {{- end }}
+            {{- if .Values.service.externalServicePorts.end }}
+            - name: EXTERNAL_SERVICE_PORTS_END
+              value: {{ .Values.service.externalServicePorts.end | quote }}
+            {{- end }}
             {{- if .Values.kinesisErrorProbability }}
             - name: KINESIS_ERROR_PROBABILITY
               value: {{ .Values.kinesisErrorProbability | quote }}
@@ -81,6 +92,28 @@ spec:
             {{- if .Values.lambdaExecutor }}
             - name: LAMBDA_EXECUTOR
               value: {{ .Values.lambdaExecutor | quote }}
+            {{- end }}
+            - name: LOCALSTACK_K8S_SERVICE_NAME
+              value: {{ include "localstack.fullname" . }}
+            - name: LOCALSTACK_K8S_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            {{- if include "localstack.lambda.labels" . }}
+            - name: LAMBDA_K8S_LABELS
+              value: {{ include "localstack.lambda.labels" . | quote }}
+            {{- end }}
+            {{- if .Values.lambda.executor }}
+            - name: LAMBDA_RUNTIME_EXECUTOR
+              value: {{ .Values.lambda.executor | quote }}
+            {{- end }}
+            {{- if .Values.lambda.image_prefix }}
+            - name: LAMBDA_K8S_IMAGE_PREFIX
+              value: {{ .Values.lambda.image_prefix | quote }}
+            {{- end }}
+            {{- if .Values.lambda.environment_timeout }}
+            - name: LAMBDA_RUNTIME_ENVIRONMENT_TIMEOUT
+              value: {{ .Values.lambda.environment_timeout | quote }}
             {{- end }}
             {{- if .Values.persistence.enabled }}
             - name: DATA_DIR
@@ -90,6 +123,8 @@ spec:
             - name: SERVICES
               value: {{ .Values.startServices | quote }}
             {{- end }}
+            - name: OVERRIDE_IN_DOCKER
+              value: "1"
             {{- if .Values.mountDind.enabled }}
             {{- if .Values.mountDind.forceTLS }}
             - name: DOCKER_HOST
