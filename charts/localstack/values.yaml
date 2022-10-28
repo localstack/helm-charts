@@ -97,8 +97,9 @@ readinessProbe:
 service:
   type: NodePort
   annotations: {}
-  ipFamilies: {}
+  ipFamilies: []
   ipFamilyPolicy: ""
+  externalTrafficPolicy: ""
   edgeService:
     name: edge
     targetPort: 4566
