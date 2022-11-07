@@ -157,6 +157,9 @@ spec:
           volumeMounts:
             - name: dind-storage
               mountPath: /var/lib/docker
+              {{- if ne (len .Values.persistence.extraVolumeMounts) 0 }}
+{{ toYaml .Values.persistence.extraVolumeMounts | indent 12 }}
+          {{- end }}
             {{- if .Values.mountDind.forceTLS }}
             - name: dind-tls
               mountPath: /opt/docker/tls
@@ -179,6 +182,9 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: {{ .Values.persistence.existingClaim | default (include "common.names.fullname" .) }}
+      {{- end }}
+      {{- if ne (len .Values.persistence.extraVolumes) 0 }}
+{{ toYaml .Values.persistence.extraVolumes | indent 8 }}
       {{- end }}
       {{- if .Values.mountDind.enabled }}
       - name: dind-storage
