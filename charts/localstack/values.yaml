@@ -201,6 +201,7 @@ enableStartupScripts: false
   # awslocal sqs create-queue --queue-name test-queue
 startupScriptContent: ""
 
+# extraVolumes additional volumes
 extraVolumes: []
 # - name: my-other-vol
 #   configMap:
@@ -211,7 +212,7 @@ extraVolumes: []
 #     secretName: my-secret
 #     defaultMode: 0744
 
-# server.persistence.extraVolumeMounts additional server volumeMounts
+# extraVolumeMounts additional server volumeMounts
 extraVolumeMounts: []
 # - name: my-other-secret-vol
 #   mountPath: /etc/config/keys/
