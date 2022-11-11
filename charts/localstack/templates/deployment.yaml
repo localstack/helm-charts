@@ -59,11 +59,11 @@ spec:
               port: {{ .Values.service.edgeService.name }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if coalesce (and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS)) .Values.enableStartupScripts .Values.persistence.enabled }}
           volumeMounts:
             {{ - if ne (len .Values.extraVolumeMounts) 0 }}
-              {{ toYaml .Values.extraVolumeMounts | indent 12 }}
-              {{ - end }}
+            {{ toYaml .Values.extraVolumeMounts | indent 12 }}
+            {{ - end }}
+            {{- if coalesce (and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS)) .Values.enableStartupScripts .Values.persistence.enabled }}
             {{- if and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS) }}
               - name: dind-tls
                 mountPath: /opt/docker/tls
@@ -178,8 +178,8 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
-      {{ - if ne (len .Values.extraVolumeMounts) 0 }}
-      {{ toYaml .Values.extraVolumeMounts | indent 12 }}
+      {{ - if ne (len .Values.extraVolumes) 0 }}
+      {{ toYaml .Values.extraVolumes | indent 12 }}
       {{ - end }}
       {{- if .Values.persistence.enabled }}
       - name: data
