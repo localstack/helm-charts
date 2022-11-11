@@ -200,3 +200,21 @@ enableStartupScripts: false
   # awslocal s3 mb s3://testbucket
   # awslocal sqs create-queue --queue-name test-queue
 startupScriptContent: ""
+
+extraVolumes: []
+# - name: my-other-vol
+#   configMap:
+#      name: my-config-map
+#      defaultMode: 0755
+# - name: my-other-secret-vol
+#   secret:
+#     secretName: my-secret
+#     defaultMode: 0744
+
+# server.persistence.extraVolumeMounts additional server volumeMounts
+extraVolumeMounts: []
+# - name: my-other-secret-vol
+#   mountPath: /etc/config/keys/
+#   readOnly: true
+# - name: my-config-map
+#   mountPath: /docker-entrypoint.d/
