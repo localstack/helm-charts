@@ -71,7 +71,11 @@ The following table lists the configurable parameters of the Localstack chart an
 | `startServices`                                      | Specify service names (APIs) to start up                                                                                                                                                                                              | `nil` (Localstack Default)                              |
 | `lambdaExecutor`                                     | Specify Method to use for executing Lambda functions (partially supported)                                                                                                                                                            | `docker`                                                |
 | `extraEnvVars`                                       | Extra environment variables to be set on Localstack primary containers                                                                                                                                                                | `nil` (Localstack Default)                              |
-| `enableStartupScripts`                               | Mount `/docker-entrypoint-initaws.d` to run startup scripts with `{{ template "localstack.fullname" . }}-init-scripts-config` configMap                                                                                               | `nil` (Localstack Default)                              |
+| `enableStartupScripts`                               | Mount `/docker-entrypoint-initaws.d` to run startup scripts with `{{ template "localstack.fullname" . }}-init-scripts-config` configMap                                                                                             | `false`                          
+    |
+| `startupScriptContent`                               | Startup script content when `enableStartupScripts` is `true`                                                                                                              | `nil` (Localstack Default)                              
+    |
+
 
 ### Deployment parameters
 
