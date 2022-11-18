@@ -1,6 +1,12 @@
 name: Test Helm Chart
-
-on: push
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
 
 jobs:
   kubeval:
