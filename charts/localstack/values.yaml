@@ -162,7 +162,7 @@ resources: {}
 
 # All settings inside the lambda values section are only applicable to the new ASF lambda provider
 lambda:
-  # The lambda runtime executor. 
+  # The lambda runtime executor.
   # Depending on the value, LocalStack will execute lambdas either in docker containers or in kubernetes pods
   # The value "kubernetes" depends on the service account and pod role being activated
   executor: "kubernetes"
@@ -200,3 +200,15 @@ enableStartupScripts: false
   # awslocal s3 mb s3://testbucket
   # awslocal sqs create-queue --queue-name test-queue
 startupScriptContent: ""
+
+# @param volumes Extra volumes to mount
+volumes: []
+#  - hostPath:
+#      path: <HOST_PATH>
+#    name: <VOLUME_NAME>
+
+# @param volumeMounts Extra volumes to mount
+volumeMounts: []
+#  - name: <VOLUME_NAME>
+#    mountPath: <CONTAINER_PATH>
+#    readOnly: true

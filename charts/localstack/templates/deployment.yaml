@@ -59,7 +59,7 @@ spec:
               port: {{ .Values.service.edgeService.name }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if coalesce (and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS)) .Values.enableStartupScripts .Values.persistence.enabled }}
+          {{- if coalesce (and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS)) .Values.enableStartupScripts .Values.persistence.enabled .Values.volumeMounts }}
           volumeMounts:
             {{- if and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS) }}
               - name: dind-tls
@@ -72,6 +72,9 @@ spec:
             {{- if .Values.persistence.enabled }}
               - name: data
                 mountPath: /tmp/localstack
+            {{- end }}
+            {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- end }}
           env:
@@ -192,4 +195,7 @@ spec:
       - name: {{ template "localstack.fullname" . }}-init-scripts-config
         configMap:
           name: {{ template "localstack.fullname" . }}-init-scripts-config
+      {{- end }}
+      {{- with .Values.volumes }}
+      {{- toYaml . | nindent 6 }}
       {{- end }}
