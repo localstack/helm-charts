@@ -71,10 +71,10 @@ spec:
             {{- end }}
             {{- if .Values.persistence.enabled }}
               - name: data
-              {{- if or (eq .Values.image.tag "latest") (not (hasPrefix .Values.image.tag "0.")) }}
-                mountPath: /var/lib/localstack
-              {{- else }}
+              {{- if hasPrefix "0." .Values.image.tag }}
                 mountPath: /tmp/localstack
+              {{- else }}
+                mountPath: /var/lib/localstack
               {{- end }}
             {{- end }}
             {{- with .Values.volumeMounts }}
