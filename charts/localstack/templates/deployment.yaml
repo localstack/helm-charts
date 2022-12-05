@@ -124,10 +124,12 @@ spec:
             {{- end }}
             {{- if .Values.persistence.enabled }}
             - name: DATA_DIR
-            {{- if or (eq .Values.image.tag "latest") (not (hasPrefix .Values.image.tag "0.")) }}
-              value: /var/lib/localstack/data
-            {{- else }}
+            {{- if hasPrefix "0." .Values.image.tag }}
+            - name: DATA_DIR
               value: /tmp/localstack/data
+            {{- else }}
+            - name: PERSISTENCE
+              value: "1"
             {{- end }}
             {{- end }}
             {{- if .Values.startServices }}
