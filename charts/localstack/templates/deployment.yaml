@@ -50,12 +50,12 @@ spec:
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
             httpGet:
-              path: /health
+              path: /_localstack/health
               port: {{ .Values.service.edgeService.name }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
             httpGet:
-              path: /health
+              path: /_localstack/health
               port: {{ .Values.service.edgeService.name }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
