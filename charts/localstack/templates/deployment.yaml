@@ -71,7 +71,11 @@ spec:
             {{- end }}
             {{- if .Values.persistence.enabled }}
               - name: data
+              {{- if hasPrefix "0." .Values.image.tag }}
                 mountPath: /tmp/localstack
+              {{- else }}
+                mountPath: /var/lib/localstack
+              {{- end }}
             {{- end }}
             {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
@@ -119,8 +123,13 @@ spec:
               value: {{ .Values.lambda.environment_timeout | quote }}
             {{- end }}
             {{- if .Values.persistence.enabled }}
+            {{- if hasPrefix "0." .Values.image.tag }}
             - name: DATA_DIR
               value: /tmp/localstack/data
+            {{- else }}
+            - name: PERSISTENCE
+              value: "1"
+            {{- end }}
             {{- end }}
             {{- if .Values.startServices }}
             - name: SERVICES
