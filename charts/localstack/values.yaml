@@ -182,6 +182,15 @@ lambda:
   #   label1: value1
   #   label2: value2
   #   label3: value3
+  #
+  # Security context to be set on the kubernetes pods spawned by the kubernetes executor.
+  # It will be set on all spawned pods.
+  # Only applicable when executor is set to "kubernetes"
+  security_context: {}
+  # security_context:
+  #   runAsUser: 1000
+  #   fsGroup: 1000
+  #   label3: value3
 
 
 nodeSelector: {}

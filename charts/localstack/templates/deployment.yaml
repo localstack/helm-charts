@@ -110,6 +110,10 @@ spec:
             - name: LAMBDA_K8S_LABELS
               value: {{ include "localstack.lambda.labels" . | quote }}
             {{- end }}
+            {{- if .Values.lambda.securityContext }}
+            - name: LAMBDA_K8S_SECURITY_CONTEXT
+              value: {{ toJson .Values.lambda.securityContext | quote }}
+            {{- end }}
             {{- if .Values.lambda.executor }}
             - name: LAMBDA_RUNTIME_EXECUTOR
               value: {{ .Values.lambda.executor | quote }}
