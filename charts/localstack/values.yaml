@@ -182,6 +182,11 @@ lambda:
   #   label1: value1
   #   label2: value2
   #   label3: value3
+  security_context: {}
+  # security_context:
+  #   runAsUser: 1000
+  #   fsGroup: 1000
+  #   label3: value3
 
 
 nodeSelector: {}
