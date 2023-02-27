@@ -81,7 +81,7 @@ spec:
               {{- end }}
             {{- end }}
             {{- with .Values.volumeMounts }}
-            {{- toYaml . | nindent 12 }}
+            {{- toYaml . | nindent 14 }}
             {{- end }}
           {{- end }}
           env:
