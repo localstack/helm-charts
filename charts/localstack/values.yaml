@@ -201,7 +201,7 @@ tolerations: []
 
 affinity: {}
 
-# Mount /docker-entrypoint-initaws.d to run startup scripts with
+# Mount /etc/localstack/init/ready.d to run startup scripts with
 # {{ template "localstack.fullname" . }}-init-scripts-config configMap
 enableStartupScripts: false
 

@@ -70,7 +70,11 @@ spec:
             {{- end }}
             {{- if .Values.enableStartupScripts }}
               - name: {{ template "localstack.fullname" . }}-init-scripts-config
+              {{- if or (hasPrefix "0." .Values.image.tag) (hasPrefix "1." .Values.image.tag) }}
                 mountPath: /docker-entrypoint-initaws.d
+              {{- else }}
+                mountPath: /etc/localstack/init/ready.d
+              {{- end }}
             {{- end }}
             {{- if .Values.persistence.enabled }}
               - name: data
