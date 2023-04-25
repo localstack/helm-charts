@@ -75,7 +75,7 @@ mountDind:
   image: "docker:20.10-dind"
 
 ## All the parameters from the configuatioan can be added using extraEnvVars.
-## Ref. https://github.com/localstack/localstack#configurations
+## Ref. https://docs.localstack.cloud/references/configuration/
 ## extraEnvVars:
 ##   - name: DEFAULT_REGION
 ##     value: "us-east-1"
