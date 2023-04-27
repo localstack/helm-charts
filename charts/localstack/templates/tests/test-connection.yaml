@@ -15,5 +15,5 @@ spec:
     - name: wget-edge
       image: busybox
       command: ['wget']
-      args: ['{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}/health']
+      args: ['-q', '--server-response', '--output-document', '-', '{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}/_localstack/health']
   restartPolicy: Never
