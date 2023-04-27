@@ -16,6 +16,7 @@ icon: https://localstack.cloud/images/localstack.png
 maintainers:
 - name: LocalStack Team and Community
   email: info@localstack.cloud
+  url: https://localstack.cloud/
 dependencies:
   - name: common
     version: 2.2.4
