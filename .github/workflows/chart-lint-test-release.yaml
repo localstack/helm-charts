@@ -52,7 +52,7 @@ jobs:
 
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct install --target-branch ${{ github.event.repository.default_branch }} --helm-extra-args "--wait"
+        run: ct install --target-branch ${{ github.event.repository.default_branch }}
 
   release:
     runs-on: ubuntu-latest
