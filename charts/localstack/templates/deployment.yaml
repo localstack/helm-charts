@@ -219,6 +219,7 @@ spec:
       - name: {{ template "localstack.fullname" . }}-init-scripts-config
         configMap:
           name: {{ template "localstack.fullname" . }}-init-scripts-config
+          defaultMode: 0755
       {{- end }}
       {{- with .Values.volumes }}
       {{- toYaml . | nindent 6 }}
