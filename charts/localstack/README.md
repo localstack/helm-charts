@@ -38,6 +38,29 @@ $ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
+## LocalStack Pro
+
+You can use this chart with LocalStack Pro by:
+1. Changing the image to `localstack/localstack-pro`.
+2. Providing your API key as an environment variable.
+
+You can set these values in a YAML file (in this example `pro-values.yaml`):
+```yaml
+image:
+  repository: localstack/localstack-pro
+
+extraEnvVars:
+  - name: LOCALSTACK_API_KEY
+    value: "<your api key>"
+```
+
+And you can use these values when installing the chart in your cluster:
+```bash
+$ helm repo add localstack-charts https://localstack.github.io/helm-charts
+$ helm install my-release localstack-charts/localstack -f pro-values.yaml
+```
+
+
 ## Parameters
 
 The following table lists the configurable parameters of the Localstack chart and their default values.

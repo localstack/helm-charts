@@ -1,5 +1,9 @@
 # Set of values to test different features of the chart
 
+# enable debugging
+debug: true
+
+
 # enable eager service loading with dynamodb
 startServices: "dynamodb"
 
@@ -9,3 +13,12 @@ enableStartupScripts: true
 startupScriptContent: |
   #!/bin/bash
   awslocal sqs create-queue --queue-name my-queue
+
+
+# enable localstack pro
+image:
+  repository: localstack/localstack-pro
+
+extraEnvVars:
+  - name: LOCALSTACK_API_KEY
+    value: "<your api key>"
