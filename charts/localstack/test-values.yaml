@@ -15,10 +15,19 @@ startupScriptContent: |
   awslocal sqs create-queue --queue-name my-queue
 
 
-# enable localstack pro
-image:
-  repository: localstack/localstack-pro
+mountDind:
+  enabled: true
+  forceTLS: true
 
-extraEnvVars:
-  - name: LOCALSTACK_API_KEY
-    value: "<your api key>"
+
+# enable localstack pro (don't forget to set your API key)
+# image:
+#   repository: localstack/localstack-pro
+
+# extraEnvVars:
+#   - name: LOCALSTACK_API_KEY
+#     value: "<your api key>"
+
+# enable kubernetes lambda executor (only pro)
+# lambda:
+#   executor: "kubernetes"
