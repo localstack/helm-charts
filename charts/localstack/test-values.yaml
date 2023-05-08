@@ -1,0 +1,4 @@
+# Set of values to test different features of the chart
+
+# enable eager service loading with dynamodb
+startServices: "dynamodb"

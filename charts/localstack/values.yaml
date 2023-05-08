@@ -62,8 +62,13 @@ securityContext: {}
 
 debug: false
 
+
+startServices: ""
+# Comma-separated list of AWS CLI service names which should be loaded right when starting LocalStack. Per default, all services are loaded and started on the first request for that service.
+
 # kinesisErrorProbability: 0.0
-# startServices: ""
+
+
 # lambdaExecutor: ""
 
 # This will enable the Docker daemon binding and allow

@@ -143,6 +143,10 @@ spec:
             {{- end }}
             {{- end }}
             {{- if .Values.startServices }}
+            - name: EAGER_SERVICE_LOADING
+              value: "1"
+            {{- end }}
+            {{- if .Values.startServices }}
             - name: SERVICES
               value: {{ .Values.startServices | quote }}
             {{- end }}
