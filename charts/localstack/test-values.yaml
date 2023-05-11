@@ -1,0 +1,33 @@
+# Set of values to test different features of the chart
+
+# enable debugging
+debug: true
+
+
+# enable eager service loading with dynamodb
+startServices: "dynamodb"
+
+
+# enable startup scripts, create a startup script which creates an SQS queue
+enableStartupScripts: true
+startupScriptContent: |
+  #!/bin/bash
+  awslocal sqs create-queue --queue-name my-queue
+
+
+mountDind:
+  enabled: true
+  forceTLS: true
+
+
+# enable localstack pro (don't forget to set your API key)
+# image:
+#   repository: localstack/localstack-pro
+
+# extraEnvVars:
+#   - name: LOCALSTACK_API_KEY
+#     value: "<your api key>"
+
+# enable kubernetes lambda executor (only pro)
+# lambda:
+#   executor: "kubernetes"

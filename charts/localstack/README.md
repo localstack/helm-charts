@@ -38,6 +38,29 @@ $ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
+## LocalStack Pro
+
+You can use this chart with LocalStack Pro by:
+1. Changing the image to `localstack/localstack-pro`.
+2. Providing your API key as an environment variable.
+
+You can set these values in a YAML file (in this example `pro-values.yaml`):
+```yaml
+image:
+  repository: localstack/localstack-pro
+
+extraEnvVars:
+  - name: LOCALSTACK_API_KEY
+    value: "<your api key>"
+```
+
+And you can use these values when installing the chart in your cluster:
+```bash
+$ helm repo add localstack-charts https://localstack.github.io/helm-charts
+$ helm install my-release localstack-charts/localstack -f pro-values.yaml
+```
+
+
 ## Parameters
 
 The following table lists the configurable parameters of the Localstack chart and their default values.
@@ -69,10 +92,10 @@ The following table lists the configurable parameters of the Localstack chart an
 |------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
 | `debug`                                              | Specify if debug logs should be enabled                                                                                                                                                                                               | `false`                                                 |
 | `kinesisErrorProbability`                            | Specify to randomly inject ProvisionedThroughputExceededException errors into Kinesis API responses                                                                                                                                   | `nil` (Localstack Default)                              |
-| `startServices`                                      | Specify service names (APIs) to start up                                                                                                                                                                                              | `nil` (Localstack Default)                              |
+| `startServices`                                      | Comma-separated list of AWS CLI service names which should be loaded right when starting LocalStack. If not set, each service is loaded and started on the first request for that service.                                          | `nil` (Localstack Default)                              |
 | `lambdaExecutor`                                     | Specify Method to use for executing Lambda functions (partially supported)                                                                                                                                                            | `docker`                                                |
 | `extraEnvVars`                                       | Extra environment variables to be set on Localstack primary containers                                                                                                                                                                | `nil` (Localstack Default)                              |
-| `enableStartupScripts`                               | Mount `/docker-entrypoint-initaws.d` to run startup scripts with `{{ template "localstack.fullname" . }}-init-scripts-config` configMap                                                                                               | `false`                                                 |
+| `enableStartupScripts`                               | Mount `/etc/localstack/init/ready.d` to run startup scripts with `{{ template "localstack.fullname" . }}-init-scripts-config` configMap                                                                                               | `false`                                                 |
 | `startupScriptContent`                               | Startup script content when `enableStartupScripts` is `true`                                                                                                                                                                          | `nil` (Localstack Default)                              |
 
 ### Deployment parameters

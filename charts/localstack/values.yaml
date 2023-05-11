@@ -62,8 +62,13 @@ securityContext: {}
 
 debug: false
 
+
+startServices: ""
+# Comma-separated list of AWS CLI service names which should be loaded right when starting LocalStack. Per default, all services are loaded and started on the first request for that service.
+
 # kinesisErrorProbability: 0.0
-# startServices: ""
+
+
 # lambdaExecutor: ""
 
 # This will enable the Docker daemon binding and allow
@@ -162,12 +167,12 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-# All settings inside the lambda values section are only applicable to the new ASF lambda provider
+# All settings inside the lambda values section are only applicable to the new v2 lambda provider
 lambda:
   # The lambda runtime executor.
   # Depending on the value, LocalStack will execute lambdas either in docker containers or in kubernetes pods
   # The value "kubernetes" depends on the service account and pod role being activated
-  executor: "kubernetes"
+  executor: "docker"
   # Image prefix for the kubernetes lambda images. The images will have to be pushed to that repository.
   # Only applicable when executor is set to "kubernetes"
   # Example: python3.9 runtime -> localstack/lambda-python:3.9
@@ -201,7 +206,7 @@ tolerations: []
 
 affinity: {}
 
-# Mount /docker-entrypoint-initaws.d to run startup scripts with
+# Mount /etc/localstack/init/ready.d to run startup scripts with
 # {{ template "localstack.fullname" . }}-init-scripts-config configMap
 enableStartupScripts: false
 
