@@ -10,5 +10,6 @@ metadata:
     {{- include "localstack.annotations" . | nindent 4 }}
 data:
   {{ template "localstack.fullname" . }}-init-scripts-config.sh: |
+    !#/bin/sh
     {{- tpl .Values.startupScriptContent $ | nindent 4 }}
 {{- end}}
