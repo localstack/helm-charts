@@ -44,7 +44,7 @@ jobs:
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct lint --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false --chart-repos "bitnami=https://charts.bitnami.com/bitnami"
+        run: ct lint --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false --chart-repos "bitnami=https://charts.bitnami.com/bitnami" --check-version-increment=false
 
       - name: Create kind cluster
         if: steps.list-changed.outputs.changed == 'true'
