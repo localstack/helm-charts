@@ -83,9 +83,9 @@ spec:
               {{- else }}
                 mountPath: /var/lib/localstack
               {{- end }}
-                {{- if .Values.persistence.subPath }}
+              {{- if .Values.persistence.subPath }}
                 subPath: {{ .Values.persistence.subPath }}
-                {{- end }}
+              {{- end }}
             {{- end }}
             {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 14 }}
