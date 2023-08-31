@@ -19,5 +19,5 @@ maintainers:
   url: https://localstack.cloud/
 dependencies:
   - name: common
-    version: 2.2.4
+    version: ^2.9.0
     repository: https://charts.bitnami.com/bitnami
