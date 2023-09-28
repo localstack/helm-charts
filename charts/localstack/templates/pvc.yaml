@@ -8,6 +8,9 @@ metadata:
     {{- include "localstack.labels" . | nindent 4 }}
   annotations:
     {{- include "localstack.annotations" . | nindent 4 }}
+    {{- with .Values.persistence.annotations }}
+    {{- tpl (toYaml .) $ | nindent 4 }}
+    {{- end }}
 spec:
   accessModes:
   {{- if not (empty .Values.persistence.accessModes) }}
