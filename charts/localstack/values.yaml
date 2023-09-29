@@ -157,6 +157,10 @@ persistence:
   ## @param persistence.subPath The name of a volume's sub path to mount for persistence
   ##
   subPath: ""
+  ## @param persistence.annotations Annotations to be added to PVC
+  ##
+  annotations: {}
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
