@@ -120,8 +120,8 @@ spec:
             - name: {{ .name }}
               valueFrom:
                 secretKeyRef:
-                name: {{ .secret $ }}
-                key: {{ .key }}
+                  name: {{ .secret }}
+                  key: {{ .key }}
             {{- end }}
             {{- if include "localstack.lambda.labels" . }}
             - name: LAMBDA_K8S_LABELS
