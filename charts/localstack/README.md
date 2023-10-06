@@ -54,6 +54,14 @@ extraEnvVars:
     value: "<your api key>"
 ```
 
+You can also load the key from a Kubernetes secret:
+```yaml
+envFromSecret:
+- name: LOCALSTACK_API_KEY
+  secret: localstack-secrets
+  key: API_KEY
+```
+
 And you can use these values when installing the chart in your cluster:
 ```bash
 $ helm repo add localstack-charts https://localstack.github.io/helm-charts
@@ -116,6 +124,7 @@ The following table lists the configurable parameters of the Localstack chart an
 | `mountDind.image`                                    | Specify DinD image tag                                                                                                                                                                                                                | `docker:20.10-dind`                                     |
 | `volumes`                                            | Extra volumes to mount                                                                                                                                                                                                                | `[]`                                                    |
 | `volumeMounts`                                       | Extra volumes to mount                                                                                                                                                                                                                | `[]`                                                    |
+| `envFromSecret`                                      |  Specify environment variables from a Kubernetes Secret                                                                                                                                                                                                               | `[]`    
 
 [k8s-probe]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 
