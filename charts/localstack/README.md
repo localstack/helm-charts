@@ -54,6 +54,16 @@ extraEnvVars:
     value: "<your api key>"
 ```
 
+If you have the LocalStack API key in a secret, you can also reference it directly with `extraEnvVars`:
+```
+extraEnvVars:
+- name: LOCALSTACK_API_KEY
+  valueFrom:
+    secretKeyRef:
+      name: <name of the secret>
+      key: <name of the key in the secret containing the API key>
+```
+
 And you can use these values when installing the chart in your cluster:
 ```bash
 $ helm repo add localstack-charts https://localstack.github.io/helm-charts

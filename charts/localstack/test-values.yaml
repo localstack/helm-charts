@@ -24,6 +24,15 @@ mountDind:
 # image:
 #   repository: localstack/localstack-pro
 
+# set the API key from an already existing secret
+# extraEnvVars:
+# - name: LOCALSTACK_API_KEY
+#   valueFrom:
+#     secretKeyRef:
+#       name: <name of the secret containing the API key>
+#       key: <name of the key in the secret containing the API key>
+
+# or set the API key directly
 # extraEnvVars:
 #   - name: LOCALSTACK_API_KEY
 #     value: "<your api key>"
