@@ -26,7 +26,7 @@ mountDind:
 
 # set the API key from an already existing secret
 # extraEnvVars:
-# - name: LOCALSTACK_API_KEY
+# - name: LOCALSTACK_AUTH_TOKEN
 #   valueFrom:
 #     secretKeyRef:
 #       name: <name of the secret containing the API key>
@@ -34,7 +34,7 @@ mountDind:
 
 # or set the API key directly
 # extraEnvVars:
-#   - name: LOCALSTACK_API_KEY
+#   - name: LOCALSTACK_AUTH_TOKEN
 #     value: "<your api key>"
 
 # enable kubernetes lambda executor (only pro)

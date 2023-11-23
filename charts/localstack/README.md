@@ -42,7 +42,8 @@ The command removes all the Kubernetes components associated with the chart and 
 
 You can use this chart with LocalStack Pro by:
 1. Changing the image to `localstack/localstack-pro`.
-2. Providing your API key as an environment variable.
+2. Providing your Auth Token as an environment variable.
+_(API keys are deprecated by Localstack v3.0)_
 
 You can set these values in a YAML file (in this example `pro-values.yaml`):
 ```yaml
@@ -50,14 +51,14 @@ image:
   repository: localstack/localstack-pro
 
 extraEnvVars:
-  - name: LOCALSTACK_API_KEY
-    value: "<your api key>"
+  - name: LOCALSTACK_AUTH_TOKEN
+    value: "<your auth token>"
 ```
 
-If you have the LocalStack API key in a secret, you can also reference it directly with `extraEnvVars`:
+If you have the LocalStack Auth Token in a secret, you can also reference it directly with `extraEnvVars`:
 ```
 extraEnvVars:
-- name: LOCALSTACK_API_KEY
+- name: LOCALSTACK_AUTH_TOKEN
   valueFrom:
     secretKeyRef:
       name: <name of the secret>
