@@ -60,6 +60,7 @@ spec:
             httpGet:
               path: /_localstack/health
               port: {{ .Values.service.edgeService.name }}
+            initialDelaySeconds: 120
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if coalesce (and (.Values.mountDind.enabled) (.Values.mountDind.forceTLS)) .Values.enableStartupScripts .Values.persistence.enabled .Values.volumeMounts }}
