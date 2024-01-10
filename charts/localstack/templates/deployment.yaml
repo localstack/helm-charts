@@ -50,6 +50,10 @@ spec:
               containerPort: {{ . }}
               protocol: TCP
             {{- end }}
+            {{- if .Values.service.dnsService }}
+            - name: dns-svc
+              containerPort: 53
+            {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
             httpGet:
