@@ -114,7 +114,7 @@ service:
   externalServicePorts:
     start: 4510
     end: 4560
-#  dnsService: true
+  #  dnsService: true
 
 ingress:
   enabled: false
