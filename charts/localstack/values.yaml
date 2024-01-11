@@ -10,17 +10,6 @@ replicaCount: 1
 updateStrategy:
   type: RollingUpdate
 
-## @param Command array to give to the pod to run at startup
-## ref: https://repost.aws/knowledge-center/eks-fargate-increase-ulimit-values
-## Example
-##     command: ["/bin/bash", "-c", "echo 'ulimit -Sn 65536' >> /root/.bashrc && echo 'ulimit -Su 16384' >> /root/.bashrc && sleep 100"]
-#command:
-#  cmd:
-#    - /bin/bash
-#    - -c
-#    - echo 'ulimit -Sn 32767' >> /root/.bashrc && echo 'ulimit -Su 16383' >> /root/.bashrc && docker-entrypoint.sh
-
-
 image:
   repository: localstack/localstack
   tag: "latest"
