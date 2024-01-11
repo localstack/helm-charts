@@ -62,9 +62,13 @@ securityContext: {}
 
 debug: false
 
+## @param command Allows you to set an arbitrary command on startup (instead of the default entrypoint script)
+##
+command: []
+
 
 startServices: ""
-# Comma-separated list of AWS CLI service names which should be loaded right when starting LocalStack. If not set, each service is loaded and started on the first request for that service.
+# Comma-separated list of AWS CLI service names which are the only ones allowed to be used (other services will then by default be prevented from being loaded).
 
 # kinesisErrorProbability: 0.0
 
@@ -114,7 +118,9 @@ service:
   externalServicePorts:
     start: 4510
     end: 4560
-  #  dnsService: true
+  ## @param service.dnsService Enables or disables the exposure of the LocalStack DNS
+  ##
+  dnsService: false
 
 ingress:
   enabled: false

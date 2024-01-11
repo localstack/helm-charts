@@ -3,9 +3,11 @@
 # enable debugging
 debug: true
 
-
-# enable eager service loading with dynamodb
-startServices: "dynamodb"
+# modify the command to set the ulimit
+command:
+  - /bin/bash
+  - -c
+  - echo 'ulimit -Sn 32767' >> /root/.bashrc && echo 'ulimit -Su 16383' >> /root/.bashrc && docker-entrypoint.sh
 
 
 # enable startup scripts, create a startup script which creates an SQS queue
