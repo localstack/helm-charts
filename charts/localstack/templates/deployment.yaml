@@ -41,6 +41,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if $.Values.command }}
+          command:
+            {{ toYaml .Values.command.cmd | nindent 12 }}
+          {{- end }}
           ports:
             - name: {{ .Values.service.edgeService.name }}
               containerPort: {{ .Values.service.edgeService.targetPort }}
