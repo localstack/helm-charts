@@ -68,7 +68,7 @@ command: []
 
 
 startServices: ""
-# Comma-separated list of AWS CLI service names which should be loaded right when starting LocalStack. If not set, each service is loaded and started on the first request for that service.
+# Comma-separated list of AWS CLI service names which are the only ones allowed to be used (other services will then by default be prevented from being loaded).
 
 # kinesisErrorProbability: 0.0
 
