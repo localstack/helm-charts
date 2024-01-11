@@ -118,7 +118,9 @@ service:
   externalServicePorts:
     start: 4510
     end: 4560
-  #  dnsService: true
+  ## @param service.dnsService Enables or disables the exposure of the LocalStack DNS
+  ##
+  dnsService: false
 
 ingress:
   enabled: false
