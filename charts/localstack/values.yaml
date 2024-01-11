@@ -62,6 +62,10 @@ securityContext: {}
 
 debug: false
 
+## @param command Allows you to set an arbitrary command on startup (instead of the default entrypoint script)
+##
+command: []
+
 
 startServices: ""
 # Comma-separated list of AWS CLI service names which should be loaded right when starting LocalStack. If not set, each service is loaded and started on the first request for that service.

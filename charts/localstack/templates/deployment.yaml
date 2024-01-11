@@ -43,7 +43,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if $.Values.command }}
           command:
-            {{ toYaml .Values.command.cmd | nindent 12 }}
+            {{ toYaml .Values.command | nindent 12 }}
           {{- end }}
           ports:
             - name: {{ .Values.service.edgeService.name }}
