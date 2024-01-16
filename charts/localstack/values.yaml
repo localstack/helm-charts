@@ -66,6 +66,11 @@ debug: false
 ##
 command: []
 
+## @param dnsPolicy Allows you to set the Pod dnsPolicy.
+## The default is actually ClusterFirst. Uncomment this to avoid a circular DNS path that will
+## cause the LocalStack instance to crash.
+## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
+#dnsPolicy: "Default"
 
 startServices: ""
 # Comma-separated list of AWS CLI service names which are the only ones allowed to be used (other services will then by default be prevented from being loaded).

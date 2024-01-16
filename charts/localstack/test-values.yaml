@@ -9,6 +9,11 @@ command:
   - -c
   - echo 'ulimit -Sn 32767' >> /root/.bashrc && echo 'ulimit -Su 16383' >> /root/.bashrc && docker-entrypoint.sh
 
+## @param dnsPolicy Allows you to set the Pod dnsPolicy.
+## The default is actually ClusterFirst. Uncomment this to avoid a circular DNS path that will
+## cause the LocalStack instance to crash.
+## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
+dnsPolicy: "Default"
 
 # enable startup scripts, create a startup script which creates an SQS queue
 enableStartupScripts: true
