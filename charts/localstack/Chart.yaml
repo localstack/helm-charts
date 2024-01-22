@@ -12,7 +12,7 @@ keywords:
 sources:
 - https://localstack.cloud/
 - https://github.com/localstack/localstack
-icon: https://localstack.cloud/images/localstack.png
+icon: https://cdn.localstack.cloud/images/logos/localstack-logo-icon-color.svg
 maintainers:
 - name: LocalStack Team and Community
   email: info@localstack.cloud
