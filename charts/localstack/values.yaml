@@ -44,6 +44,8 @@ role:
   # The name of the role and rolebinding to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+  # Assign the role extra permissions if required
+  extraRules: []
 
 podLabels: {}
 
