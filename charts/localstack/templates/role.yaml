@@ -10,7 +10,10 @@ rules:
 - apiGroups: [""] # "" indicates the core API group
   resources: ["pods"]
   verbs: ["*"]
-{{- if .Values.role.extraRules }}
-{{ toYaml .Values.role.extraRules }}
-{{- end }}
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "list"]
 {{- end }}
