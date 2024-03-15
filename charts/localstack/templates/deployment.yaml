@@ -18,9 +18,14 @@ spec:
       {{- include "localstack.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- if or .Values.podAnnotations .Values.enableStartupScripts }}
       annotations:
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.enableStartupScripts }}
+        checksum/startup: {{ tpl .Values.startupScriptContent . | sha256sum }}
+      {{- end }}
       {{- end }}
       labels:
         {{- include "localstack.selectorLabels" . | nindent 8 }}
