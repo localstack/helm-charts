@@ -14,6 +14,7 @@ command:
 ## cause the LocalStack instance to crash.
 ## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
 dnsPolicy: "Default"
+priorityClassName: "system-cluster-critical"     # built-in priority class in most k8s distributions
 
 # enable startup scripts, create a startup script which creates an SQS queue
 enableStartupScripts: true

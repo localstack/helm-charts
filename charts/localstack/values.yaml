@@ -247,3 +247,7 @@ volumeMounts: []
 #  - name: <VOLUME_NAME>
 #    mountPath: <CONTAINER_PATH>
 #    readOnly: true
+
+## @param priorityClassName Allows you to set the priorityClassName for the pod
+## The default is not to set any priorityClassName
+# priorityClassName: ""
