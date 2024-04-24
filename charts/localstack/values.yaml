@@ -130,8 +130,9 @@ service:
 ingress:
   enabled: false
   annotations: {}
-  # To set the ingress class via spec.ingressClassName, uncomment the line below
-  # ingressClassName: nginx
+  ## @param ingress.ingressClassName Set the name of the class to use
+  ##
+  ingressClassName: ""
   hosts:
     - host: chart-example.local
       paths:
