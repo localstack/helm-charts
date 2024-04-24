@@ -130,9 +130,9 @@ service:
 ingress:
   enabled: false
   annotations: {}
-    # Adjust the ingress class when not using nginx as incress controller
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  ## @param ingress.ingressClassName Set the name of the class to use
+  ##
+  ingressClassName: ""
   hosts:
     - host: chart-example.local
       paths:
