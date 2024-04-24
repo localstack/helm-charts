@@ -130,9 +130,18 @@ service:
 ingress:
   enabled: false
   annotations: {}
-    # Adjust the ingress class when not using nginx as incress controller
+    # Adjust the ingress class when not using nginx as ingress controller
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
+
+    # If you are using SSL passthrough for the certificates for nginx, uncomment the
+    # annotations below (note: nginx needs to be started with `--enable-ssl-passthrough` for these to work)
+    # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+  # To set the ingress class via spec.ingressClassName, uncomment the line below
+  # ingressClassName: nginx
   hosts:
     - host: chart-example.local
       paths:

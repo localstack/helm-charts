@@ -22,6 +22,10 @@ metadata:
     {{- tpl (toYaml .) $ | nindent 4 }}
     {{- end }}
 spec:
+{{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+{{- end }}
+
 {{- if .Values.ingress.tls }}
   tls:
   {{- range .Values.ingress.tls }}
