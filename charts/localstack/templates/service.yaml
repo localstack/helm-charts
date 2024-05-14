@@ -37,6 +37,14 @@ spec:
       {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .Values.service.edgeService.nodePort)) }}
       nodePort: {{ .Values.service.edgeService.nodePort }}
       {{- end }}
+    {{- if .Values.service.dnsService }}
+    - name: dns-tcp
+      containerPort: 53
+      protocol: TCP
+    - name: dns-udp
+      containerPort: 53
+      protocol: UDP
+    {{- end }}
     {{- range untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
     - name: "external-service-port-{{ . }}"
       port: {{ . }}
