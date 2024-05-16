@@ -39,9 +39,11 @@ spec:
       {{- end }}
     {{- if .Values.service.dnsService }}
     - name: dns-tcp
+      port: 53
       containerPort: 53
       protocol: TCP
     - name: dns-udp
+      port: 53
       containerPort: 53
       protocol: UDP
     {{- end }}
