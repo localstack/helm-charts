@@ -25,6 +25,9 @@ ingress:
   enabled: true
   hosts:
     - host: "{{ .Values.ingressHost }}"
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
 
 # enable localstack pro (don't forget to set your API key)
 # image:
