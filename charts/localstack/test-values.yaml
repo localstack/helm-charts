@@ -24,7 +24,7 @@ ingressHost: chart-example.local
 ingress:
   enabled: true
   hosts:
-    - host: {{ .Values.ingressHost }}
+    - host: "{{ .Values.ingressHost }}"
 
 # enable localstack pro (don't forget to set your API key)
 # image:
