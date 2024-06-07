@@ -47,11 +47,10 @@ spec:
       containerPort: 53
       protocol: UDP
     {{- end }}
-      {{- range $index, $port := untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
-    - name: "external-service-port-{{ $port }}"
-      port: {{ $port }}
-      targetPort: "ext-svc-{{ $port }}"
-      nodePort: {{ add $index 31510 }}
+    {{- range untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
+    - name: "external-service-port-{{ . }}"
+      port: {{ . }}
+      targetPort: "ext-svc-{{ . }}"
     {{- end }}
   selector:
     {{- include "localstack.selectorLabels" . | nindent 4 }}
