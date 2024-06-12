@@ -123,6 +123,9 @@ service:
   externalServicePorts:
     start: 4510
     end: 4560
+    ## @param service.externalServicePorts.nodePortStart specifies the starting node ports the serviceports are mapped to
+    ##   has to be in the node port range configured. See https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+    # nodePortStart: 31510
   ## @param service.dnsService Enables or disables the exposure of the LocalStack DNS
   ##
   dnsService: false
