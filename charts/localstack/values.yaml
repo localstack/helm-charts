@@ -97,6 +97,11 @@ mountDind:
 ##     value: "serverless,sqs,es"
 extraEnvVars: []
 
+## envFrom Allows you to set additional environment variables from a ConfigMap or Secret
+## - configMapRef:
+##     name: configmap-name
+envFrom: []
+
 livenessProbe:
   initialDelaySeconds: 0
   periodSeconds: 10
