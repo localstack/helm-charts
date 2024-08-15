@@ -19,6 +19,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## OpenShift.  When set to 'true' it will add SecurityContextConstraings (SCC)
+## to the role
+openshift: false
+
 ## @param extraDeploy Extra objects to deploy (value evaluated as a template)
 ##
 extraDeploy: []
@@ -154,6 +158,12 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+## Create a Route resource if using OpenShift
+## Defaults to the 'edge' port of the service on 4566
+route:
+  enabled: false
+  port: edge
 
 persistence:
   ## @param persistence.enabled Enable persistence using Persistent Volume Claims
