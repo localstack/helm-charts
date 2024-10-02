@@ -18,6 +18,7 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+namespaceOverride: ""
 
 ## @param extraDeploy Extra objects to deploy (value evaluated as a template)
 ##
