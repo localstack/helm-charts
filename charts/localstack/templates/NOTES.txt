@@ -20,8 +20,3 @@
   echo "visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace | quote }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 {{- end }}
-{{- if and .Values.openshift .Values.route.enabled }}
-  export ROUTE_URL=$(oc get route localstack-fork --namespace "localstack" -o jsonpath="{.spec.host}")
-  echo http://$ROUTE_URL
-  echo "visit http://$ROUTE_URL to use your application"
-{{- end }}

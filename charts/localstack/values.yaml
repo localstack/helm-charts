@@ -19,10 +19,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-## OpenShift.  When set to 'true' it will add SecurityContextConstraings (SCC)
-## to the role
-openshift: false
-
 ## @param extraDeploy Extra objects to deploy (value evaluated as a template)
 ##
 extraDeploy: []
@@ -48,6 +44,13 @@ role:
   # The name of the role and rolebinding to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+
+## OpenShift Security Context Constraints.  When set to 'true' it will add SecurityContextConstraings (SCC)
+## to the role
+scc:
+  resourceNames:
+    - anyuid
+    - nonroot
 
 podLabels: {}
 
@@ -158,12 +161,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-## Create a Route resource if using OpenShift
-## Defaults to the 'edge' port of the service on 4566
-route:
-  enabled: false
-  port: edge
 
 persistence:
   ## @param persistence.enabled Enable persistence using Persistent Volume Claims

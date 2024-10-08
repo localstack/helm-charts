@@ -19,10 +19,12 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["get", "list"]
-{{- if .Values.openshift }}
+{{- if .Values.scc }}
 - apiGroups: ["security.openshift.io"]
   resources: ["securitycontextconstraints"]
-  resourceNames: ["anyuid"]
+  resourceNames:
+    {{- range .Values.scc.resourceNames }}
+    - {{ . | quote }}
   verbs: ["use"]
 {{- end }}
 {{- end }}
