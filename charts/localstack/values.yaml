@@ -18,7 +18,10 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-namespaceOverride: ""
+
+common:
+  names:
+    namespaces: ""
 
 ## @param extraDeploy Extra objects to deploy (value evaluated as a template)
 ##
@@ -264,3 +267,4 @@ volumeMounts: []
 ## @param priorityClassName Allows you to set the priorityClassName for the pod
 ## The default is not to set any priorityClassName
 # priorityClassName: ""
+

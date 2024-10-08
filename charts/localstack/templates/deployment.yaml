@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "localstack.fullname" . }}
-  namespace: {{ include "localstack.namespace" . }}
+  namespace: {{ include "common.names.namespace" . }}
   labels:
     {{- include "localstack.labels" . | nindent 4 }}
   annotations:
