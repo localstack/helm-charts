@@ -24,19 +24,6 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
-Create a default namespace for the app.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If a common.names.namespace is provided, it will be used as the namespace.
-*/}}
-{{- define "common.names.namespace" -}}
-{{- if .Values.common.names.namespaces }}
-{{- .Values.common.names.namespaces | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- .Release.Namespace | quote }}
-{{- end }}
-{{- end }}
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "localstack.chart" -}}
