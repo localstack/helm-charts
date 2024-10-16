@@ -103,15 +103,14 @@ The cluster contains several default security context constraints (SCCs). The av
 
 Example:
 
-
 ```yaml
 role:
   create: true
-
-scc:
-  resourceNames:
-    - privileged
-    - hostnetwork
+  extraRoles:
+    - apiGroups: ["security.openshift.io"]
+      resources: ["securitycontextconstraints"]
+      resourceNames: ["anyuid"]
+      verbs: ["use"]
 ```
 
 For a more comprehensive overview, see the official SCC documentation: [OpenShift SCCs](https://docs.openshift.com/container-platform/4.16/authentication/managing-security-context-constraints.html)

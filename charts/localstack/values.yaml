@@ -45,13 +45,6 @@ role:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## OpenShift Security Context Constraints.  When set to 'true' it will add SecurityContextConstraings (SCC)
-## to the role
-scc:
-  resourceNames:
-    - anyuid
-    - nonroot
-
 podLabels: {}
 
 podAnnotations: {}
