@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ include "common.names.namespace" . }}
   name: {{ include "localstack.roleName" . }}
   labels:
     {{- include "localstack.labels" . | nindent 4 }}
