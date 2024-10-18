@@ -57,3 +57,11 @@ ingress:
 # enable kubernetes lambda executor (only pro)
 # lambda:
 #   executor: "kubernetes"
+
+# add extra roles for OpenShift
+# role:
+#   extraRoles:
+#     - apiGroups: ["security.openshift.io"]
+#       resources: ["securitycontextconstraints"]
+#       resourceNames: ["anyuid"]
+#       verbs: ["use"]

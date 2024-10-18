@@ -105,7 +105,6 @@ Example:
 
 ```yaml
 role:
-  create: true
   extraRoles:
     - apiGroups: ["security.openshift.io"]
       resources: ["securitycontextconstraints"]

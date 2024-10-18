@@ -20,14 +20,7 @@ rules:
   resources: ["services"]
   verbs: ["get", "list"]
 {{- if .Values.role.extraRoles }}
-  {{- range .Values.role.extraRoles }}
-- apiGroups: {{ toJson .apiGroups | nindent 2 }}
-  resources: {{ toJson .resources | nindent 2 }}
-  {{- if .resourceNames }}
-  resourceNames: {{ toJson .resourceNames | nindent 2 }}
-  {{- end }}
-  verbs: {{ toJson .verbs | nindent 2 }}
-  {{- end }}
+{{ include "common.tplvalues.render" (dict "value" .Values.role.extraRoles "context" $) }}
 {{- end }}
 {{- end }}
 
