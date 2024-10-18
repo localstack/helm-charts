@@ -19,4 +19,8 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["get", "list"]
+{{- if .Values.role.extraRoles }}
+{{ include "common.tplvalues.render" (dict "value" .Values.role.extraRoles "context" $) }}
 {{- end }}
+{{- end }}
+

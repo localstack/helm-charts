@@ -82,6 +82,38 @@ Useful Helm Client Commands:
 * Install a chart: `helm install <name> localstack/<chart>`
 * Upgrade your application: `helm upgrade`
 
+### Using the chart in OpenShift
+
+Running LocalStack on OpenShift requires specific Security Context Constraints (SCC) to be applied to ensure proper deployment and operation.
+In the OpenShift Container Platform, you can use SCCs to control permissions for the pods in your cluster.
+
+Default SCCs are created during installation and when you install some Operators or other components. As a cluster administrator,
+you can also create your own SCCs.
+
+The cluster contains several default security context constraints (SCCs). The available Security Context Constraints are:
+
+* anyuid
+* hostaccess
+* hostmount-anyuid
+* hostnetwork
+* node-exporter
+* nonroot
+* privileged
+* restricted
+
+Example:
+
+```yaml
+role:
+  extraRoles:
+    - apiGroups: ["security.openshift.io"]
+      resources: ["securitycontextconstraints"]
+      resourceNames: ["anyuid"]
+      verbs: ["use"]
+```
+
+For a more comprehensive overview, see the official SCC documentation: [OpenShift SCCs](https://docs.openshift.com/container-platform/4.16/authentication/managing-security-context-constraints.html)
+
 ## Change Log
 
 Please refer to [GitHub releases](https://github.com/localstack/helm-charts/releases) to see the complete list of changes for each release.
