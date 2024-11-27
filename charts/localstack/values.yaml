@@ -23,8 +23,11 @@ fullnameOverride: ""
 ##
 extraDeploy: []
 
-## Add additional annotations to every resource
+## @param extraAnnotations Add additional annotations to every resource (value evaluated as a template)
 extraAnnotations: {}
+
+## @param extraLabels Add additional labels to every resource (value evaluated as a template)
+extraLabels: {}
 
 serviceAccount:
   # Specifies whether a service account should be created
