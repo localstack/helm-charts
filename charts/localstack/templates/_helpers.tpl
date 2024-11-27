@@ -40,8 +40,10 @@ helm.sh/chart: {{ include "localstack.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- if .Values.extraLabels }}
-{{ toYaml .Values.extraLabels }}
+{{- with .Values.extraLabels }}
+{{- range $label, $value := index . }}
+{{ $label }}: {{ tpl $value $ | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 
