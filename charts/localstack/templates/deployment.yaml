@@ -66,8 +66,12 @@ spec:
               protocol: TCP
             {{- end }}
             {{- if .Values.service.dnsService }}
-            - name: dns-svc
+            - name: dns-svc-tcp
               containerPort: 53
+              protocol: TCP
+            - name: dns-svc-udp
+              containerPort: 53
+              protocol: UDP
             {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
