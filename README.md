@@ -71,7 +71,7 @@ The following command allows you to download and install all the charts from thi
 $ helm repo add localstack https://localstack.github.io/helm-charts
 ```
 
-### Using Helm
+## Using Helm
 
 Once you have installed the Helm client, you can deploy a Helm chart into a Kubernetes cluster.
 
@@ -81,6 +81,24 @@ Useful Helm Client Commands:
 * View available charts: `helm search repo`
 * Install a chart: `helm install <name> localstack/<chart>`
 * Upgrade your application: `helm upgrade`
+
+### Customization
+
+The helm chart can be customized with [Helm override files](https://helm.sh/docs/helm/helm_upgrade/) (the `-f/--values`) flag.
+A yaml file can be provided to override the default settings in the [default values.yml](https://github.com/localstack/helm-charts/blob/main/charts/localstack/values.yaml).
+
+A common customisation is to specify the LocalStack pod resource requests and limits. In particular, AWS EKS on Fargate commonly terminates LocalStack pods with the default resource requests. Consider adding the following section to your customization file:
+
+```yaml
+resources:
+  requests:
+    cpu: 1
+    memory: 1Gi
+  limits:
+    cpu: 2
+    memory: 2Gi
+```
+
 
 ### Using the chart in OpenShift
 
