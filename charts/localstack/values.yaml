@@ -106,17 +106,17 @@ extraEnvVars: []
 envFrom: []
 
 livenessProbe:
-  initialDelaySeconds: 0
+  initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 1
   successThreshold: 1
-  failureThreshold: 3
+  failureThreshold: 5
 readinessProbe:
-  initialDelaySeconds: 0
+  initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 1
   successThreshold: 1
-  failureThreshold: 3
+  failureThreshold: 5
 
 service:
   type: NodePort
