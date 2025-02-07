@@ -40,11 +40,11 @@ spec:
     {{- if .Values.service.dnsService }}
     - name: dns-tcp
       port: 53
-      containerPort: 53
+      targetPort: 53
       protocol: TCP
     - name: dns-udp
       port: 53
-      containerPort: 53
+      targetPort: 53
       protocol: UDP
     {{- end }}
     {{- range $index, $port := untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
