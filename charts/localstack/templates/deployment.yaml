@@ -115,6 +115,8 @@ spec:
             {{- end }}
           {{- end }}
           env:
+            - name: CONTAINER_RUNTIME
+              value: kubernetes
             - name: DEBUG
               value: {{ ternary "1" "0" .Values.debug | quote }}
             {{- if .Values.service.externalServicePorts.start }}
