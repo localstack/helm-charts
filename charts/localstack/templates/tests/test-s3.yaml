@@ -1,3 +1,4 @@
+{{- if .Values.tests.s3.enabled }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -13,9 +14,17 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   containers:
-    - name: awscli-s3
-      image: amazon/aws-cli
-      args: ['--debug', '--endpoint-url', 'http://{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}', 's3', 'ls']
+    - name: {{ .Values.tests.s3.name }}
+      image: {{ .Values.tests.s3.image }}
+      {{- with .Values.tests.s3.command }}
+      command:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      args:
+        {{- $global := . }}
+        {{- range $arg := index .Values.tests.s3.args }}
+        - {{ tpl $arg $global | quote }}
+        {{- end }}
       env:
       - name: AWS_ACCESS_KEY_ID
         value: test
@@ -24,3 +33,4 @@ spec:
       - name: AWS_DEFAULT_REGION
         value: us-east-1
   restartPolicy: Never
+{{- end }}
