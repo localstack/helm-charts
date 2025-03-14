@@ -257,33 +257,17 @@ volumes: []
 #      path: <HOST_PATH>
 #    name: <VOLUME_NAME>
 
-# Customize and enable/disable helm tests, if necessary
-#
-# args are run through the tpl function, so on render it will interpolate
-# strings as templates within the tests templates.
+# Helm test controls
 tests:
-  connection:
-    enabled: true
-    name: wget-edge
-    image: busybox:latest
-    command:
-      - wget
-    args:
-      - -q
-      - --server-response
-      - --output-document
-      - '-'
-      - '{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}/_localstack/health'
-  s3:
-    enabled: true
-    name: awscli-s3
-    image: amazon/aws-cli
-    args:
-      - --debug
-      - --endpoint-url
-      - 'http://{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}'
-      - s3
-      - ls
+  # An option to enable/disable helm tests from values (useful if subcharting localstack
+  # as other chart tests may make this test redundant)
+  enabled: true
+
+  # Amazon's aws-cli image is used for all tests. Update this if specific repository
+  # or tag is needed for an environment
+  image:
+    repository: amazon/aws-cli
+    tag: latest
 
 # @param volumeMounts Extra volumes to mount
 volumeMounts: []

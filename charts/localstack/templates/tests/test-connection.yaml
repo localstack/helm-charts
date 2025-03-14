@@ -1,4 +1,4 @@
-{{- if .Values.tests.connection.enabled }}
+{{- if .Values.tests.enabled }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -14,16 +14,25 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   containers:
-    - name: {{ .Values.tests.connection.name }}
-      image: {{ .Values.tests.connection.image }}
-      {{- with .Values.tests.connection.command }}
+    - name: curl-edge
+      image: {{ .Values.tests.image.repository }}:{{ .Values.tests.image.tag }}
       command:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      args:
-        {{- $global := . }}
-        {{- range $arg := index .Values.tests.connection.args }}
-        - {{ tpl $arg $global | quote }}
-        {{- end }}
+        - /bin/bash
+        - -c
+        - |
+          URL='{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}/_localstack/health'
+          RETRIES=5
+          DELAY=2
+          for i in $(seq 1 $RETRIES); do
+            if curl -vvv "$URL"; then
+              echo "Connection successful!"
+              exit 0
+            else
+              echo "Retry $i of $RETRIES..."
+              sleep $DELAY
+            fi
+          done
+          echo "Failed to connect after $RETRIES attempts."
+          exit 1
   restartPolicy: Never
 {{- end }}

@@ -1,4 +1,4 @@
-{{- if .Values.tests.s3.enabled }}
+{{- if .Values.tests.enabled }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -14,17 +14,27 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   containers:
-    - name: {{ .Values.tests.s3.name }}
-      image: {{ .Values.tests.s3.image }}
-      {{- with .Values.tests.s3.command }}
+    - name: awscli-s3
+      image: {{ .Values.tests.image.repository }}:{{ .Values.tests.image.tag }}
       command:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      args:
-        {{- $global := . }}
-        {{- range $arg := index .Values.tests.s3.args }}
-        - {{ tpl $arg $global | quote }}
-        {{- end }}
+        - /bin/bash
+        - -c
+        - |
+          RETRIES=5
+          DELAY=2
+          URL=http://{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}
+          COMMAND="aws --debug --endpoint-url $URL s3 ls"
+          for i in $(seq 1 $RETRIES); do
+            if $COMMAND; then
+              echo "aws-cli s3 ls successful!"
+              exit 0
+            else
+              echo "Retry $i of $RETRIES..."
+              sleep $DELAY
+            fi
+          done
+          echo "Failed to aws-cli s3 ls after $RETRIES attempts."
+          exit 1
       env:
       - name: AWS_ACCESS_KEY_ID
         value: test
