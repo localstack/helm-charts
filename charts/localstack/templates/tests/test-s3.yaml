@@ -1,3 +1,4 @@
+{{- if .Values.tests.enabled }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -14,8 +15,26 @@ metadata:
 spec:
   containers:
     - name: awscli-s3
-      image: amazon/aws-cli
-      args: ['--debug', '--endpoint-url', 'http://{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}', 's3', 'ls']
+      image: {{ .Values.tests.image.repository }}:{{ .Values.tests.image.tag }}
+      command:
+        - /bin/bash
+        - -c
+        - |
+          RETRIES=5
+          DELAY=2
+          URL=http://{{ include "localstack.fullname" . }}:{{ .Values.service.edgeService.targetPort }}
+          COMMAND="aws --debug --endpoint-url $URL s3 ls"
+          for i in $(seq 1 $RETRIES); do
+            if $COMMAND; then
+              echo "aws-cli s3 ls successful!"
+              exit 0
+            else
+              echo "Retry $i of $RETRIES..."
+              sleep $DELAY
+            fi
+          done
+          echo "Failed to aws-cli s3 ls after $RETRIES attempts."
+          exit 1
       env:
       - name: AWS_ACCESS_KEY_ID
         value: test
@@ -24,3 +43,4 @@ spec:
       - name: AWS_DEFAULT_REGION
         value: us-east-1
   restartPolicy: Never
+{{- end }}

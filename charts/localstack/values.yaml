@@ -257,6 +257,18 @@ volumes: []
 #      path: <HOST_PATH>
 #    name: <VOLUME_NAME>
 
+# Helm test controls
+tests:
+  # An option to enable/disable helm tests from values (useful if subcharting localstack
+  # as other chart tests may make this test redundant)
+  enabled: true
+
+  # Amazon's aws-cli image is used for all tests. Update this if specific repository
+  # or tag is needed for an environment
+  image:
+    repository: amazon/aws-cli
+    tag: latest
+
 # @param volumeMounts Extra volumes to mount
 volumeMounts: []
 #  - name: <VOLUME_NAME>
