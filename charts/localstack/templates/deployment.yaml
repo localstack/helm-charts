@@ -143,6 +143,14 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+            - name: LOCALSTACK_K8S_POD_UID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+            - name: LOCALSTACK_K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             {{- if include "localstack.lambda.labels" . }}
             - name: LAMBDA_K8S_LABELS
               value: {{ include "localstack.lambda.labels" . | quote }}
