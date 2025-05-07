@@ -13,7 +13,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ include "common.names.namespace" . }}
   labels:
     {{- include "localstack.labels" . | nindent 4 }}
   annotations:
