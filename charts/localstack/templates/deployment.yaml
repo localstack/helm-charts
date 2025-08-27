@@ -188,6 +188,8 @@ spec:
             {{- end }}
             - name: OVERRIDE_IN_DOCKER
               value: "1"
+            - name: LOCALSTACK_K8S_DEPLOYMENT_METHOD
+              value: "helm/{{ .Chart.Version }}"
             {{- if .Values.mountDind.enabled }}
             {{- if .Values.mountDind.forceTLS }}
             - name: DOCKER_HOST
