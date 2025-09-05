@@ -8,7 +8,7 @@ metadata:
     {{- include "localstack.labels" . | nindent 4 }}
 rules:
 - apiGroups: [""] # "" indicates the core API group
-  resources: ["pods"]
+  resources: ["pods", "services"]
   verbs: ["*"]
 - apiGroups: [""]
   resources: ["pods/log"]
@@ -16,14 +16,8 @@ rules:
 - apiGroups: [""]
   resources: ["pods/exec"]
   verbs: ["get", "create"]
-- apiGroups: [""]
-  resources: ["services"]
-  verbs: ["*"]
 - apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["*"]
-- apiGroups: ["apps"]
-  resources: ["deployments/scale"]
+  resources: ["deployments", "deployments/scale"]
   verbs: ["*"]
 {{- if .Values.role.extraRoles }}
 {{ include "common.tplvalues.render" (dict "value" .Values.role.extraRoles "context" $) }}
