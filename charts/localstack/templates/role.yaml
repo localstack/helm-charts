@@ -18,9 +18,12 @@ rules:
   verbs: ["get", "create"]
 - apiGroups: [""]
   resources: ["services"]
-  verbs: ["get", "list"]
+  verbs: ["*"]
 - apiGroups: ["apps"]
   resources: ["deployments"]
+  verbs: ["*"]
+- apiGroups: ["apps"]
+  resources: ["deployments/scale"]
   verbs: ["*"]
 {{- if .Values.role.extraRoles }}
 {{ include "common.tplvalues.render" (dict "value" .Values.role.extraRoles "context" $) }}
