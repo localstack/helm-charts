@@ -136,7 +136,11 @@ service:
     # nodePortStart: 31510
   ## @param service.dnsService Enables or disables the exposure of the LocalStack DNS
   ##
-  dnsService: false
+  dnsService:
+    enabled: false
+    ## @param service.dnsService.nodePort specifies the nodePort to map theDNS service to
+    ##
+    nodePort: 31053
   ## @param service.clusterIP sets a static clusterIP. This is useful alongside the LocalStack DNS setup
   ##   see https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/#configuration-of-stub-domain-and-upstream-nameserver-using-coredns for an example of DNS delegation in Coredns
   ##

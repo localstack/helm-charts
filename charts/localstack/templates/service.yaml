@@ -37,23 +37,35 @@ spec:
       {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .Values.service.edgeService.nodePort)) }}
       nodePort: {{ .Values.service.edgeService.nodePort }}
       {{- end }}
-    {{- if .Values.service.dnsService }}
+    {{- $dnsEnabled := false }}
+    {{- if kindIs "bool" .Values.service.dnsService }}
+      {{- $dnsEnabled = .Values.service.dnsService }}
+    {{- else if .Values.service.dnsService.enabled }}
+      {{- $dnsEnabled = .Values.service.dnsService.enabled }}
+    {{- end }}
+    {{- if $dnsEnabled }}
     - name: dns-tcp
       port: 53
       targetPort: 53
       protocol: TCP
+      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (kindIs "map" .Values.service.dnsService) (hasKey .Values.service.dnsService "nodePort") }}
+      nodePort: {{ .Values.service.dnsService.nodePort }}
+      {{- end }}
     - name: dns-udp
       port: 53
       targetPort: 53
       protocol: UDP
+      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (kindIs "map" .Values.service.dnsService) (hasKey .Values.service.dnsService "nodePort") }}
+      nodePort: {{ .Values.service.dnsService.nodePort }}
+      {{- end }}
     {{- end }}
     {{- range $index, $port := untilStep (.Values.service.externalServicePorts.start|int) (.Values.service.externalServicePorts.end|int) 1 }}
     - name: "external-service-port-{{ $port }}"
       port: {{ $port }}
       targetPort: "ext-svc-{{ $port }}"
-    {{- with $.Values.service.externalServicePorts.nodePortStart|int }}
+      {{- with $.Values.service.externalServicePorts.nodePortStart|int }}
       nodePort: {{ add $index . }}
-    {{- end }}
+      {{- end }}
     {{- end }}
   selector:
     {{- include "localstack.selectorLabels" . | nindent 4 }}
