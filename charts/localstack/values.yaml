@@ -135,6 +135,8 @@ service:
     ##   has to be in the node port range configured. See https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
     # nodePortStart: 31510
   ## @param service.dnsService Enables or disables the exposure of the LocalStack DNS
+  ##   see https://docs.localstack.cloud/aws/tooling/dns-server/#system-dns-configuration
+  ##   for more information on how to configure LocalStack DNS on your system
   ##
   dnsService:
     enabled: false
