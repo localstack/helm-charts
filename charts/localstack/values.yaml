@@ -138,7 +138,7 @@ service:
   ##
   dnsService:
     enabled: false
-    ## @param service.dnsService.nodePort specifies the nodePort to map theDNS service to
+    ## @param service.dnsService.nodePort specifies the nodePort to map the DNS service to
     ##
     nodePort: 31053
   ## @param service.clusterIP sets a static clusterIP. This is useful alongside the LocalStack DNS setup
