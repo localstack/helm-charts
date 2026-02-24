@@ -1,3 +1,6 @@
+IMPORTANT: LocalStack requires an auth token to be configured via extraEnvVars.
+Ensure you have set LOCALSTACK_AUTH_TOKEN in your values file or the deployment will not function properly.
+
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
 {{- range $host := .Values.ingress.hosts }}

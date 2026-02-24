@@ -53,11 +53,6 @@ $ helm delete my-release
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Authentication
-
-**Important:** As part of the LocalStack image consolidation, both `localstack/localstack` and `localstack/localstack-pro` images now require an auth token. There is no longer a free version that can be used without authentication.
-
-To use LocalStack, you must provide your Auth Token as an environment variable. _(API keys are deprecated by Localstack v3.0)_
-
 You can set the auth token in a YAML file (in this example `values.yaml`):
 ```yaml
 extraEnvVars:

@@ -93,6 +93,15 @@ mountDind:
 
 ## All the parameters from the configuatioan can be added using extraEnvVars.
 ## Ref. https://docs.localstack.cloud/references/configuration/
+##
+## REQUIRED: LocalStack requires an auth token for all installations.
+## You must configure LOCALSTACK_AUTH_TOKEN via extraEnvVars or a secret.
+## Example:
+## extraEnvVars:
+##   - name: LOCALSTACK_AUTH_TOKEN
+##     value: "<your auth token>"
+##
+## Additional configuration examples:
 ## extraEnvVars:
 ##   - name: DEFAULT_REGION
 ##     value: "us-east-1"
