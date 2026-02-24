@@ -11,7 +11,7 @@ updateStrategy:
   type: RollingUpdate
 
 image:
-  repository: localstack/localstack
+  repository: localstack/localstack-pro
   tag: "latest"
   pullPolicy: IfNotPresent
 

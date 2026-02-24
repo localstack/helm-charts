@@ -37,10 +37,6 @@ ingress:
       - path: /
         pathType: ImplementationSpecific
 
-# enable localstack pro (don't forget to set your API key)
-# image:
-#   repository: localstack/localstack-pro
-
 # set the API key from an already existing secret
 # extraEnvVars:
 # - name: LOCALSTACK_AUTH_TOKEN
@@ -54,7 +50,7 @@ ingress:
 #   - name: LOCALSTACK_AUTH_TOKEN
 #     value: "<your api key>"
 
-# enable kubernetes lambda executor (only pro)
+# enable kubernetes lambda executor
 # lambda:
 #   executor: "kubernetes"
 
