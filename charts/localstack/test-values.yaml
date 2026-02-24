@@ -39,12 +39,12 @@ ingress:
 
 # REQUIRED: LocalStack requires an auth token for all installations.
 # You can set the auth token from an already existing secret:
-# extraEnvVars:
-# - name: LOCALSTACK_AUTH_TOKEN
-#   valueFrom:
-#     secretKeyRef:
-#       name: <name of the secret containing the auth token>
-#       key: <name of the key in the secret containing the auth token>
+extraEnvVars:
+- name: LOCALSTACK_AUTH_TOKEN
+  valueFrom:
+    secretKeyRef:
+      name: localstack-auth-token
+      key: auth-token
 
 # Or set the auth token directly:
 # extraEnvVars:

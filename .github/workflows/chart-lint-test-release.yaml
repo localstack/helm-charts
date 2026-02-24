@@ -50,6 +50,14 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         uses: helm/kind-action@v1
 
+      - name: Create LocalStack auth token secret
+        if: steps.list-changed.outputs.changed == 'true'
+        # LocalStack requires an auth token for all installations
+        # The LOCALSTACK_AUTH_TOKEN secret must be configured in the GitHub repository settings
+        run: |
+          kubectl create secret generic localstack-auth-token \
+            --from-literal=auth-token="${{ secrets.LOCALSTACK_AUTH_TOKEN }}"
+
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: ct install --target-branch ${{ github.event.repository.default_branch }}
