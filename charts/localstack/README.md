@@ -185,6 +185,9 @@ When raising a pull request with a fix or new feature, please make sure to:
 
 ## Change Log
 
+* v0.7.0: Prepare for image consolidation, default to localstack/localstack-pro
+* v0.6.0: Upgrade to LocalStack v2
+* v0.5.0: Add external service ports, additional configs, k8s lambda executor
 * v0.4.2: Remove default ingress annotation
 * v0.4.1: Add the ability to set service annotations
 * v0.4.0: Add the ability to set annotations on all objects globally and specifically add localstack-init-scripts-config.sh ConfigMap
