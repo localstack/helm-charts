@@ -55,12 +55,13 @@ jobs:
         # LocalStack requires an auth token for all installations
         # The LOCALSTACK_AUTH_TOKEN secret must be configured in the GitHub repository settings
         run: |
-          kubectl create secret generic localstack-auth-token \
+          kubectl create namespace testing
+          kubectl create secret generic --namespace testing localstack-auth-token \
             --from-literal=auth-token="${{ secrets.LOCALSTACK_AUTH_TOKEN }}"
 
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct install --target-branch ${{ github.event.repository.default_branch }}
+        run: ct install --target-branch ${{ github.event.repository.default_branch }} --namespace testing
 
   release:
     runs-on: ubuntu-latest
