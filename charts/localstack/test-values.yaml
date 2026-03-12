@@ -37,24 +37,21 @@ ingress:
       - path: /
         pathType: ImplementationSpecific
 
-# enable localstack pro (don't forget to set your API key)
-# image:
-#   repository: localstack/localstack-pro
+# REQUIRED: LocalStack requires an auth token for all installations.
+# You can set the auth token from an already existing secret:
+extraEnvVars:
+- name: LOCALSTACK_AUTH_TOKEN
+  valueFrom:
+    secretKeyRef:
+      name: localstack-auth-token
+      key: auth-token
 
-# set the API key from an already existing secret
-# extraEnvVars:
-# - name: LOCALSTACK_AUTH_TOKEN
-#   valueFrom:
-#     secretKeyRef:
-#       name: <name of the secret containing the API key>
-#       key: <name of the key in the secret containing the API key>
-
-# or set the API key directly
+# Or set the auth token directly:
 # extraEnvVars:
 #   - name: LOCALSTACK_AUTH_TOKEN
-#     value: "<your api key>"
+#     value: "<your auth token>"
 
-# enable kubernetes lambda executor (only pro)
+# enable kubernetes lambda executor
 # lambda:
 #   executor: "kubernetes"
 

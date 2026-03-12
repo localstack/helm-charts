@@ -6,10 +6,22 @@ Helm Charts for LocalStack.
 
 ## TL;DR
 
+**Note:** LocalStack now requires an auth token for all installations.
+
+Create a `values.yaml` file with your auth token:
+```yaml
+extraEnvVars:
+  - name: LOCALSTACK_AUTH_TOKEN
+    value: "<your auth token>"
+```
+
+Then install the chart:
 ```bash
 $ helm repo add localstack-charts https://localstack.github.io/helm-charts
-$ helm install my-release localstack-charts/localstack
+$ helm install my-release localstack-charts/localstack -f values.yaml
 ```
+
+See the [Authentication](#authentication) section for alternative configuration methods for your auth token.
 
 ## Introduction
 
@@ -21,8 +33,10 @@ To install the chart with the release name `my-release`:
 
 ```bash
 $ helm repo add localstack-charts https://localstack.github.io/helm-charts
-$ helm install my-release localstack-charts/localstack
+$ helm install my-release localstack-charts/localstack -f values.yaml
 ```
+
+**Important:** LocalStack requires an auth token for all installations. You must configure your auth token as described in the [Authentication](#authentication) section below before installing the chart.
 
 These commands deploy LocalStack on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
@@ -38,37 +52,28 @@ $ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
-## LocalStack Pro
-
-You can use this chart with LocalStack Pro by:
-1. Changing the image to `localstack/localstack-pro`.
-2. Providing your Auth Token as an environment variable.
-_(API keys are deprecated by Localstack v3.0)_
-
-You can set these values in a YAML file (in this example `pro-values.yaml`):
+## Authentication
+You can set the auth token in a YAML file (in this example `values.yaml`):
 ```yaml
-image:
-  repository: localstack/localstack-pro
-
 extraEnvVars:
   - name: LOCALSTACK_AUTH_TOKEN
     value: "<your auth token>"
 ```
 
 If you have the LocalStack Auth Token in a secret, you can also reference it directly with `extraEnvVars`:
-```
+```yaml
 extraEnvVars:
 - name: LOCALSTACK_AUTH_TOKEN
   valueFrom:
     secretKeyRef:
       name: <name of the secret>
-      key: <name of the key in the secret containing the API key>
+      key: <name of the key in the secret containing the auth token>
 ```
 
-And you can use these values when installing the chart in your cluster:
+Then use these values when installing the chart in your cluster:
 ```bash
 $ helm repo add localstack-charts https://localstack.github.io/helm-charts
-$ helm install my-release localstack-charts/localstack -f pro-values.yaml
+$ helm install my-release localstack-charts/localstack -f values.yaml
 ```
 
 
@@ -180,6 +185,9 @@ When raising a pull request with a fix or new feature, please make sure to:
 
 ## Change Log
 
+* v0.7.0: Prepare for image consolidation, default to localstack/localstack-pro
+* v0.6.0: Upgrade to LocalStack v2
+* v0.5.0: Add external service ports, additional configs, k8s lambda executor
 * v0.4.2: Remove default ingress annotation
 * v0.4.1: Add the ability to set service annotations
 * v0.4.0: Add the ability to set annotations on all objects globally and specifically add localstack-init-scripts-config.sh ConfigMap

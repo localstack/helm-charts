@@ -1,0 +1,23 @@
+# CI test values for chart-testing
+# This file is automatically used by the chart-testing tool during CI runs
+
+# Enable debug mode for better test output
+debug: true
+
+# Set DNS policy to avoid circular DNS issues in test environments
+dnsPolicy: "Default"
+
+# Configure LocalStack auth token from a Kubernetes secret
+# The secret is created by the GitHub workflow before running tests
+extraEnvVars:
+  - name: LOCALSTACK_AUTH_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: localstack-auth-token
+        key: auth-token
+
+# Enable startup scripts to test initialization
+enableStartupScripts: true
+startupScriptContent: |
+  #!/bin/bash
+  awslocal sqs create-queue --queue-name test-queue
