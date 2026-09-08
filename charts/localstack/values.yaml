@@ -255,6 +255,17 @@ tolerations: []
 
 affinity: {}
 
+# Topology spread constraints for pod assignment
+# Example:
+# topologySpreadConstraints:
+#   - maxSkew: 1
+#     topologyKey: topology.kubernetes.io/zone
+#     whenUnsatisfiable: ScheduleAnyway
+#     labelSelector:
+#       matchLabels:
+#         app.kubernetes.io/name: localstack
+topologySpreadConstraints: []
+
 # Mount /etc/localstack/init/ready.d to run startup scripts with
 # {{ template "localstack.fullname" . }}-init-scripts-config configMap
 enableStartupScripts: false
