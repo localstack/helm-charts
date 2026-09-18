@@ -107,7 +107,7 @@ non-empty string when the new names should be used, empty otherwise.
 {{- $useNew := true -}}
 {{- if $calver -}}
 {{- $parts := splitList "." $calver -}}
-{{- $ym := add (mul (index $parts 0 | int) 100) (index $parts 1 | int) -}}
+{{- $ym := add (mul (index $parts 0 | atoi) 100) (index $parts 1 | atoi) -}}
 {{- if le $ym 202606 -}}
 {{- $useNew = false -}}
 {{- end -}}
